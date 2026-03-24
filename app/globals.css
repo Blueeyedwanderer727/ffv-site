@@ -56,6 +56,918 @@ body::after {
   z-index: 998;
 }
 
+.ff-home-shell {
+  transition: opacity 0.55s ease, filter 0.55s ease, transform 0.55s ease;
+}
+
+.ff-home-shell-hidden {
+  opacity: 0;
+  filter: blur(18px);
+  transform: scale(1.01);
+}
+
+.ff-home-shell-ready {
+  opacity: 1;
+  filter: blur(0);
+  transform: scale(1);
+}
+
+.ff-vhs-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(109, 255, 156, 0.15), transparent 24%),
+    linear-gradient(180deg, rgba(6, 14, 10, 0.95), rgba(1, 3, 2, 0.99));
+  isolation: isolate;
+  transition: opacity 0.52s ease, visibility 0.52s ease;
+}
+
+.ff-vhs-intro-leaving {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ff-vhs-intro-glitch {
+  animation: ff-pre-reveal-glitch 0.24s steps(2, end) 1;
+}
+
+.ff-vhs-intro-glitch .ff-vault-shot,
+.ff-vhs-intro-glitch .ff-vhs-recording-frame,
+.ff-vhs-intro-glitch .ff-vhs-copy {
+  animation: ff-frame-jump 0.24s steps(2, end) 1;
+}
+
+.ff-vhs-intro-glitch .ff-vhs-static-burst {
+  animation: ff-static-burst 0.24s linear 1;
+  opacity: 0.95;
+}
+
+.ff-vhs-intro::before,
+.ff-vhs-intro::after {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+}
+
+.ff-vhs-intro::before {
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(202, 255, 218, 0.08) 48%, transparent 52%),
+    repeating-linear-gradient(
+      0deg,
+      rgba(173, 255, 202, 0.035) 0px,
+      rgba(173, 255, 202, 0.035) 2px,
+      transparent 2px,
+      transparent 4px
+    );
+  opacity: 0.34;
+  mix-blend-mode: screen;
+  animation: ff-vhs-roll 2.8s linear infinite;
+}
+
+.ff-vhs-intro::after {
+  background:
+    radial-gradient(circle at 16% 34%, rgba(99, 255, 149, 0.08), transparent 18%),
+    radial-gradient(circle at 78% 66%, rgba(143, 255, 198, 0.11), transparent 18%),
+    linear-gradient(180deg, transparent, rgba(196, 255, 216, 0.08), transparent);
+  opacity: 0.6;
+  animation: ff-vhs-chroma 0.18s steps(2, end) infinite;
+}
+
+.ff-vhs-intro-noise,
+.ff-vhs-intro-tracking,
+.ff-vhs-static-burst,
+.ff-vhs-intro-fault,
+.ff-vhs-copy {
+  position: absolute;
+}
+
+.ff-vhs-intro-noise,
+.ff-vhs-intro-tracking,
+.ff-vhs-static-burst,
+.ff-vhs-intro-fault {
+  inset: 0;
+  pointer-events: none;
+}
+
+.ff-vhs-intro-noise {
+  opacity: 0.5;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(208, 255, 221, 0.16) 0px,
+      rgba(208, 255, 221, 0.16) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(193, 255, 211, 0.05) 0px,
+      rgba(193, 255, 211, 0.05) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(90deg, rgba(218, 255, 227, 0.05), transparent 18%, rgba(218, 255, 227, 0.04) 82%, transparent);
+  mix-blend-mode: screen;
+  animation: ff-vhs-noise 0.16s steps(4, end) infinite, ff-noise-flicker 2.2s steps(2, end) infinite;
+}
+
+.ff-vhs-intro-tracking {
+  background:
+    linear-gradient(180deg, transparent 0%, rgba(214, 255, 225, 0.16) 48%, transparent 52%),
+    linear-gradient(0deg, transparent 0%, rgba(0, 0, 0, 0.58) 100%);
+  opacity: 0.28;
+  transform: translateY(-100%);
+  animation: ff-vhs-tracking 1.75s linear infinite, ff-tracking-flicker 1.6s steps(2, end) infinite;
+}
+
+.ff-vhs-static-burst {
+  opacity: 0;
+  background:
+    radial-gradient(circle at center, rgba(219, 255, 229, 0.65), rgba(170, 255, 194, 0.24) 18%, transparent 38%),
+    repeating-radial-gradient(circle at center, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(
+      90deg,
+      rgba(222, 255, 231, 0.14) 0px,
+      rgba(222, 255, 231, 0.14) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: screen;
+  animation: ff-static-burst 3.6s linear infinite;
+}
+
+.ff-vhs-recording-frame {
+  position: absolute;
+  inset: clamp(1rem, 4vw, 2.5rem);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.ff-vhs-recording-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(148, 255, 185, 0.18);
+  box-shadow:
+    inset 0 0 0 1px rgba(207, 255, 221, 0.04),
+    inset 0 0 72px rgba(91, 255, 148, 0.05);
+}
+
+.ff-vhs-recording-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(209, 255, 221, 0.04), transparent 12%, transparent 88%, rgba(209, 255, 221, 0.04)),
+    linear-gradient(90deg, rgba(209, 255, 221, 0.03), transparent 12%, transparent 88%, rgba(209, 255, 221, 0.03)),
+    radial-gradient(circle at 50% 50%, transparent 58%, rgba(209, 255, 221, 0.035) 100%);
+}
+
+.ff-vhs-recording-hud {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  right: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  animation: ff-hud-jitter 1.2s steps(2, end) infinite, ff-hud-flicker 2.8s steps(2, end) infinite;
+}
+
+.ff-vhs-hud-dot {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  background: rgba(208, 255, 216, 0.78);
+  box-shadow: 0 0 10px rgba(109, 255, 156, 0.2);
+  animation: ff-rec-blink 0.8s steps(2, end) infinite;
+}
+
+.ff-vhs-hud-dot-dim {
+  opacity: 0.46;
+  animation: none;
+}
+
+.ff-vault-shot {
+  position: relative;
+  width: min(78vw, 1040px);
+  aspect-ratio: 1.7 / 1;
+  border: 1px solid rgba(168, 255, 197, 0.16);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(146, 255, 182, 0.28), transparent 14%),
+    radial-gradient(circle at 50% 24%, rgba(156, 255, 191, 0.08), transparent 18%),
+    linear-gradient(180deg, rgba(9, 19, 13, 0.24), rgba(2, 5, 3, 0.88));
+  box-shadow:
+    0 0 32px rgba(91, 255, 148, 0.12),
+    inset 0 0 140px rgba(0, 0, 0, 0.74);
+  overflow: hidden;
+  filter: contrast(0.98) brightness(0.68) saturate(0.48);
+  animation: ff-camera-drift 4.6s ease-in-out infinite, ff-footage-flicker 2.6s steps(2, end) infinite;
+}
+
+.ff-vault-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.24);
+  object-position: 68% 44%;
+  filter: grayscale(1) sepia(0.54) hue-rotate(48deg) saturate(2.1) contrast(1.06) brightness(0.34) blur(1.8px);
+  animation: ff-edge-warp 7.2s ease-in-out infinite;
+}
+
+.ff-vault-shot::before,
+.ff-vault-shot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.ff-vault-shot::before {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.86) 0%, rgba(0, 0, 0, 0.34) 22%, rgba(0, 0, 0, 0.2) 68%, rgba(0, 0, 0, 0.9) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.84) 0%, transparent 16%, transparent 78%, rgba(0, 0, 0, 0.94) 100%),
+    radial-gradient(circle at 50% 52%, transparent 52%, rgba(0, 0, 0, 0.34) 100%);
+}
+
+.ff-vault-shot::after {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(194, 255, 212, 0.06) 0px,
+      rgba(194, 255, 212, 0.06) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(194, 255, 212, 0.026) 0px,
+      rgba(194, 255, 212, 0.026) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    radial-gradient(circle at 8% 16%, rgba(194, 255, 212, 0.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 84% 72%, rgba(194, 255, 212, 0.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 61% 18%, rgba(194, 255, 212, 0.05) 0 1px, transparent 2px),
+    radial-gradient(circle at 74% 42%, rgba(119, 255, 158, 0.16), transparent 16%);
+  mix-blend-mode: screen;
+}
+
+.ff-vault-lens-smear,
+.ff-vault-camera-bloom,
+.ff-vault-shadow-pass,
+.ff-vault-dropout-line,
+.ff-vault-timecode-bloom {
+  position: absolute;
+  inset: 0;
+}
+
+.ff-vault-shadow-pass {
+  background:
+    radial-gradient(circle at 24% 52%, rgba(0, 0, 0, 0.54), transparent 18%),
+    radial-gradient(circle at 36% 56%, rgba(0, 0, 0, 0.24), transparent 22%);
+  opacity: 0;
+  mix-blend-mode: multiply;
+  animation: ff-shadow-pass 5.8s ease-in-out infinite;
+}
+
+.ff-vault-dropout-line {
+  left: -4%;
+  right: -4%;
+  height: 2.5%;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(224, 255, 232, 0.34) 22%, rgba(224, 255, 232, 0.06) 52%, rgba(224, 255, 232, 0.28) 82%, transparent 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0));
+  opacity: 0;
+  filter: blur(1px);
+  mix-blend-mode: screen;
+}
+
+.ff-vault-dropout-line-a {
+  top: 18%;
+  animation: ff-dropout-a 4.6s linear infinite;
+}
+
+.ff-vault-dropout-line-b {
+  top: 64%;
+  animation: ff-dropout-b 5.2s linear infinite;
+}
+
+.ff-vault-timecode-bloom {
+  background:
+    radial-gradient(circle at 14% 8%, rgba(199, 255, 214, 0.12), transparent 8%),
+    radial-gradient(circle at 86% 10%, rgba(199, 255, 214, 0.08), transparent 8%);
+  mix-blend-mode: screen;
+  opacity: 0.52;
+}
+
+.ff-vault-lens-smear {
+  background:
+    radial-gradient(circle at 14% 22%, rgba(255, 255, 255, 0.08), transparent 10%),
+    radial-gradient(circle at 74% 28%, rgba(184, 255, 205, 0.16), transparent 12%),
+    linear-gradient(112deg, transparent 26%, rgba(236, 255, 242, 0.06) 42%, transparent 58%),
+    radial-gradient(circle at 22% 78%, rgba(214, 255, 225, 0.08), transparent 8%);
+  filter: blur(18px);
+  opacity: 0.62;
+}
+
+.ff-vault-camera-bloom {
+  background:
+    radial-gradient(circle at 70% 43%, rgba(216, 255, 226, 0.16), transparent 10%),
+    radial-gradient(circle at 56% 72%, rgba(130, 255, 173, 0.1), transparent 20%),
+    radial-gradient(circle at 9% 92%, rgba(130, 255, 173, 0.05), transparent 12%);
+  mix-blend-mode: screen;
+}
+
+.ff-vault-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 58% 46%, transparent 18%, rgba(0, 0, 0, 0.58) 62%, rgba(0, 0, 0, 0.88) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.14) 26%, rgba(0, 0, 0, 0.08) 72%, rgba(0, 0, 0, 0.84));
+}
+
+.ff-vault-chamber {
+  position: absolute;
+  inset: 14% 12% 12%;
+  border: 1px solid rgba(171, 255, 201, 0.09);
+  background:
+    linear-gradient(180deg, rgba(20, 42, 28, 0.14), rgba(3, 9, 5, 0.76)),
+    radial-gradient(circle at 50% 40%, rgba(190, 255, 211, 0.08), transparent 18%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(176, 255, 201, 0.035) 0px,
+      rgba(176, 255, 201, 0.035) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+  box-shadow: inset 0 30px 70px rgba(0, 0, 0, 0.2);
+}
+
+.ff-vault-door {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  width: 30%;
+  aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 2px solid rgba(179, 255, 207, 0.32);
+  background:
+    radial-gradient(circle at 50% 50%, rgba(209, 255, 223, 0.22), rgba(83, 126, 95, 0.22) 32%, rgba(6, 14, 8, 0.94) 68%),
+    linear-gradient(135deg, rgba(214, 255, 226, 0.06), transparent 44%);
+  box-shadow:
+    0 0 26px rgba(102, 255, 156, 0.12),
+    inset 0 0 44px rgba(215, 255, 226, 0.08);
+}
+
+.ff-vault-door-shadow {
+  position: absolute;
+  left: 50%;
+  top: 14%;
+  width: 38%;
+  height: 34%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at center, rgba(176, 255, 202, 0.1), rgba(0, 0, 0, 0.36) 58%, transparent 72%);
+  filter: blur(14px);
+}
+
+.ff-vault-wheel,
+.ff-vault-spoke,
+.ff-vault-core-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ff-vault-wheel {
+  width: 42%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 2px solid rgba(201, 255, 219, 0.38);
+  box-shadow: inset 0 0 20px rgba(193, 255, 211, 0.08);
+}
+
+.ff-vault-spoke {
+  width: 3px;
+  height: 36%;
+  background: linear-gradient(180deg, rgba(216, 255, 226, 0.9), rgba(111, 168, 127, 0.3));
+  transform-origin: center center;
+}
+
+.ff-vault-spoke-a {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.ff-vault-spoke-b {
+  transform: translate(-50%, -50%) rotate(60deg);
+}
+
+.ff-vault-spoke-c {
+  transform: translate(-50%, -50%) rotate(-60deg);
+}
+
+.ff-vault-core-dot {
+  width: 8%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: rgba(224, 255, 233, 0.8);
+  box-shadow: 0 0 16px rgba(167, 255, 194, 0.22);
+}
+
+.ff-vault-aisle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 22%;
+  height: 42%;
+  transform: translateX(-50%);
+  background:
+    linear-gradient(180deg, rgba(153, 255, 189, 0.08), transparent 18%),
+    linear-gradient(90deg, rgba(12, 24, 16, 0.3), rgba(155, 255, 190, 0.16) 50%, rgba(12, 24, 16, 0.3));
+  clip-path: polygon(33% 0, 67% 0, 100% 100%, 0 100%);
+}
+
+.ff-vault-shelf {
+  position: absolute;
+  width: 14%;
+  height: 48%;
+  bottom: 10%;
+  border: 1px solid rgba(172, 255, 200, 0.14);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(189, 255, 212, 0.08) 0px,
+      rgba(189, 255, 212, 0.08) 2px,
+      transparent 2px,
+      transparent 18px
+    ),
+    linear-gradient(180deg, rgba(16, 32, 20, 0.58), rgba(3, 8, 5, 0.7));
+}
+
+.ff-vault-dust {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(204, 255, 218, 0.28);
+  filter: blur(1px);
+  box-shadow: 0 0 10px rgba(204, 255, 218, 0.18);
+  animation: ff-dust-float 6s linear infinite;
+}
+
+.ff-vault-dust-a {
+  left: 18%;
+  top: 26%;
+  animation-delay: -1.1s;
+}
+
+.ff-vault-dust-b {
+  right: 21%;
+  top: 38%;
+  width: 6px;
+  height: 6px;
+  animation-delay: -3.3s;
+}
+
+.ff-vault-dust-c {
+  left: 58%;
+  bottom: 24%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -4.6s;
+}
+
+.ff-vhs-audio-meter {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: end;
+  gap: 0.24rem;
+  height: 2.2rem;
+}
+
+.ff-vhs-audio-meter span {
+  width: 0.28rem;
+  height: 22%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(224, 255, 232, 0.9), rgba(103, 214, 136, 0.42));
+  box-shadow: 0 0 10px rgba(112, 255, 162, 0.16);
+  transform-origin: bottom;
+  animation: ff-audio-meter 0.9s ease-in-out infinite;
+}
+
+.ff-vhs-audio-meter span:nth-child(1) { animation-delay: -0.15s; }
+.ff-vhs-audio-meter span:nth-child(2) { animation-delay: -0.48s; }
+.ff-vhs-audio-meter span:nth-child(3) { animation-delay: -0.72s; }
+.ff-vhs-audio-meter span:nth-child(4) { animation-delay: -0.21s; }
+.ff-vhs-audio-meter span:nth-child(5) { animation-delay: -0.56s; }
+.ff-vhs-audio-meter span:nth-child(6) { animation-delay: -0.83s; }
+.ff-vhs-audio-meter span:nth-child(7) { animation-delay: -0.37s; }
+.ff-vhs-audio-meter span:nth-child(8) { animation-delay: -0.64s; }
+
+.ff-vault-shelf-a {
+  left: 10%;
+  transform: skewY(5deg);
+}
+
+.ff-vault-shelf-b {
+  right: 10%;
+  transform: skewY(-5deg);
+}
+
+.ff-vault-shelf-c {
+  left: 50%;
+  width: 10%;
+  height: 28%;
+  bottom: 18%;
+  transform: translateX(-50%);
+}
+
+.ff-vhs-intro-fault {
+  display: grid;
+  place-items: center;
+  filter: saturate(0.82);
+}
+
+.ff-vhs-fault-core,
+.ff-vhs-fault-shift,
+.ff-vhs-fault-burn {
+  position: absolute;
+  width: min(74vw, 920px);
+  aspect-ratio: 1.4 / 1;
+  border-radius: 2.4rem;
+}
+
+.ff-vhs-fault-core {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(246, 255, 250, 0.72), rgba(225, 255, 237, 0.34) 16%, rgba(42, 56, 47, 0.42) 36%, rgba(3, 5, 4, 0.94) 68%),
+    radial-gradient(circle at 30% 44%, rgba(0, 0, 0, 0.7), transparent 18%),
+    radial-gradient(circle at 70% 58%, rgba(0, 0, 0, 0.66), transparent 18%);
+  box-shadow:
+    0 0 140px rgba(255, 255, 255, 0.18),
+    inset 0 0 42px rgba(255, 255, 255, 0.12);
+  animation: ff-fault-pulse 0.16s steps(2, end) infinite;
+}
+
+.ff-vhs-fault-shift {
+  background:
+    radial-gradient(circle at 48% 52%, rgba(75, 130, 255, 0.28), transparent 22%),
+    radial-gradient(circle at 52% 49%, rgba(255, 74, 74, 0.28), transparent 22%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0px, rgba(255, 255, 255, 0.04) 2px, transparent 2px, transparent 6px);
+  mix-blend-mode: screen;
+  transform: translateX(0.45rem);
+  opacity: 0.7;
+  animation: ff-fault-shift 0.22s steps(2, end) infinite;
+}
+
+.ff-vhs-fault-burn {
+  background:
+    radial-gradient(circle at 50% 48%, transparent 0 12%, rgba(255, 255, 255, 0.14) 22%, transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 42%),
+    linear-gradient(315deg, rgba(255, 255, 255, 0.06), transparent 42%);
+  filter: blur(16px);
+  opacity: 0.56;
+  animation: ff-fault-burn 1.3s ease-in-out infinite;
+}
+
+.ff-vhs-copy {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: min(90vw, 880px);
+  padding: 1rem 1rem 1.1rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.ff-vhs-copy::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(72vw, 620px);
+  height: min(34vw, 220px);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at center, rgba(0, 0, 0, 0.52), rgba(0, 0, 0, 0.24) 48%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(22px);
+}
+
+.ff-vhs-copy > * {
+  position: relative;
+  z-index: 1;
+}
+
+.ff-vhs-copy-line {
+  opacity: 0;
+  transform: translateY(0.5rem);
+  animation: ff-copy-reveal 0.42s ease forwards;
+}
+
+.ff-vhs-kicker.ff-vhs-copy-line {
+  animation-delay: 0.78s;
+}
+
+.ff-vhs-copy-title {
+  animation:
+    ff-copy-reveal 0.42s ease forwards,
+    ff-vhs-title-jitter 0.12s steps(2, end) 1.72s infinite,
+    ff-vhs-title-instability 1.9s steps(2, end) 1.72s infinite,
+    ff-vhs-title-flicker 2.2s steps(2, end) 1.72s infinite;
+  animation-delay: 1.3s, 1.72s, 1.72s, 1.72s;
+  max-width: 100%;
+}
+
+.ff-vhs-title {
+  position: relative;
+  margin: 0;
+  font-size: clamp(2.2rem, 5.6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(229, 255, 233, 0.56);
+  text-shadow:
+    0 0 6px rgba(214, 255, 225, 0.12),
+    0 0 12px rgba(161, 255, 192, 0.08),
+    0 0 24px rgba(122, 255, 170, 0.05),
+    0 2px 28px rgba(0, 0, 0, 0.9);
+}
+
+.ff-vhs-title::before,
+.ff-vhs-title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ff-vhs-title::before {
+  color: rgba(178, 255, 196, 0.22);
+  transform: translate(-0.05em, -0.03em);
+  clip-path: polygon(0 0, 100% 0, 100% 46%, 0 50%);
+}
+
+.ff-vhs-title::after {
+  color: rgba(118, 255, 165, 0.24);
+  transform: translate(0.055em, 0.035em);
+  clip-path: polygon(0 54%, 100% 50%, 100% 100%, 0 100%);
+}
+
+@keyframes ff-rec-blink {
+  0%, 45%, 100% { opacity: 1; }
+  46%, 70% { opacity: 0.24; }
+}
+
+@keyframes ff-static-burst {
+  0%, 18%, 100% { opacity: 0; transform: scale(1); }
+  19% { opacity: 0.95; transform: scale(1.02); }
+  21% { opacity: 0.18; }
+  58% { opacity: 0; }
+  59% { opacity: 0.72; transform: scale(1.01); }
+  61% { opacity: 0.12; }
+}
+
+@keyframes ff-noise-flicker {
+  0%, 100% { opacity: 0.46; }
+  18% { opacity: 0.56; }
+  36% { opacity: 0.44; }
+  54% { opacity: 0.58; }
+  72% { opacity: 0.48; }
+}
+
+@keyframes ff-hud-jitter {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-0.12rem, 0, 0); }
+  50% { transform: translate3d(0.08rem, 0.04rem, 0); }
+  75% { transform: translate3d(-0.06rem, -0.03rem, 0); }
+}
+
+@keyframes ff-hud-flicker {
+  0%, 100% { opacity: 0.76; }
+  12% { opacity: 0.68; }
+  26% { opacity: 0.8; }
+  44% { opacity: 0.62; }
+  58% { opacity: 0.74; }
+  76% { opacity: 0.66; }
+}
+
+@keyframes ff-vhs-roll {
+  0% { transform: translateY(-3%); }
+  100% { transform: translateY(3%); }
+}
+
+@keyframes ff-vhs-chroma {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0.35rem, -0.1rem); }
+}
+
+@keyframes ff-vhs-noise {
+  0% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(-0.3%, 0.5%, 0); }
+  50% { transform: translate3d(0.4%, -0.2%, 0); }
+  75% { transform: translate3d(-0.1%, 0.35%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes ff-vhs-tracking {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes ff-tracking-flicker {
+  0%, 100% { opacity: 0.24; }
+  25% { opacity: 0.3; }
+  50% { opacity: 0.18; }
+  75% { opacity: 0.28; }
+}
+
+@keyframes ff-fault-pulse {
+  0%, 100% { transform: scale(1) skewX(0deg); opacity: 0.88; }
+  50% { transform: scale(1.03) skewX(-3deg); opacity: 1; }
+}
+
+@keyframes ff-fault-shift {
+  0%, 100% { transform: translateX(0.4rem); opacity: 0.62; }
+  50% { transform: translateX(-0.5rem); opacity: 0.82; }
+}
+
+@keyframes ff-fault-burn {
+  0%, 100% { transform: scale(0.96); opacity: 0.34; }
+  50% { transform: scale(1.05); opacity: 0.64; }
+}
+
+@keyframes ff-vhs-title-jitter {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-0.02em, 0.01em); }
+  50% { transform: translate(0.03em, -0.015em); }
+  75% { transform: translate(-0.015em, -0.01em); }
+}
+
+@keyframes ff-camera-drift {
+  0%, 100% { transform: scale(1) translate3d(0, 0, 0); }
+  35% { transform: scale(1.012) translate3d(-0.2%, 0.3%, 0); }
+  70% { transform: scale(1.018) translate3d(0.22%, -0.18%, 0); }
+}
+
+@keyframes ff-edge-warp {
+  0%, 100% { transform: scale(1.18) skewX(0deg) skewY(0deg); }
+  28% { transform: scale(1.182) skewX(-0.18deg) skewY(0.08deg); }
+  52% { transform: scale(1.176) skewX(0.14deg) skewY(-0.08deg); }
+  76% { transform: scale(1.184) skewX(-0.1deg) skewY(0.05deg); }
+}
+
+@keyframes ff-footage-flicker {
+  0%, 100% { opacity: 1; }
+  14% { opacity: 0.97; }
+  29% { opacity: 0.99; }
+  46% { opacity: 0.95; }
+  61% { opacity: 1; }
+  78% { opacity: 0.96; }
+}
+
+@keyframes ff-shadow-pass {
+  0%, 18%, 100% {
+    opacity: 0;
+    transform: translateX(-14%) scaleX(0.86);
+  }
+  26% {
+    opacity: 0.22;
+  }
+  40% {
+    opacity: 0.34;
+    transform: translateX(0%) scaleX(1);
+  }
+  54% {
+    opacity: 0.12;
+    transform: translateX(14%) scaleX(1.08);
+  }
+}
+
+@keyframes ff-dropout-a {
+  0%, 100% { opacity: 0; transform: translateX(-6%) scaleX(0.96); }
+  14% { opacity: 0.42; }
+  18% { opacity: 0.08; transform: translateX(3%) scaleX(1.04); }
+  19% { opacity: 0; }
+  62% { opacity: 0; }
+  64% { opacity: 0.3; }
+  68% { opacity: 0; transform: translateX(-4%) scaleX(1); }
+}
+
+@keyframes ff-dropout-b {
+  0%, 100% { opacity: 0; transform: translateX(6%) scaleX(1); }
+  32% { opacity: 0; }
+  35% { opacity: 0.28; }
+  39% { opacity: 0.05; transform: translateX(-3%) scaleX(0.98); }
+  40% { opacity: 0; }
+  82% { opacity: 0; }
+  85% { opacity: 0.34; }
+  88% { opacity: 0; }
+}
+
+@keyframes ff-dust-float {
+  0% { transform: translate3d(0, 0.4rem, 0); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translate3d(0.35rem, -1rem, 0); opacity: 0; }
+}
+
+@keyframes ff-audio-meter {
+  0%, 100% { height: 18%; opacity: 0.55; }
+  20% { height: 52%; opacity: 0.84; }
+  45% { height: 92%; opacity: 1; }
+  70% { height: 38%; opacity: 0.76; }
+}
+
+@keyframes ff-copy-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(0.5rem);
+    filter: blur(10px);
+  }
+  60% {
+    opacity: 0.86;
+    transform: translateY(0);
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes ff-vhs-title-instability {
+  0%, 100% {
+    opacity: 0.58;
+    filter: blur(0.2px);
+  }
+  8% {
+    opacity: 0.32;
+  }
+  10% {
+    opacity: 0.62;
+  }
+  28% {
+    opacity: 0.5;
+  }
+  31% {
+    opacity: 0.2;
+    filter: blur(0.9px);
+  }
+  34% {
+    opacity: 0.6;
+    filter: blur(0.1px);
+  }
+  58% {
+    opacity: 0.54;
+  }
+  61% {
+    opacity: 0.3;
+  }
+  64% {
+    opacity: 0.62;
+  }
+  82% {
+    opacity: 0.46;
+  }
+  86% {
+    opacity: 0.12;
+    filter: blur(1.2px);
+  }
+  89% {
+    opacity: 0.56;
+    filter: blur(0.1px);
+  }
+}
+
+@keyframes ff-vhs-title-flicker {
+  0%, 100% { opacity: 0.56; }
+  9% { opacity: 0.46; }
+  19% { opacity: 0.62; }
+  38% { opacity: 0.42; }
+  43% { opacity: 0.54; }
+  67% { opacity: 0.38; }
+  72% { opacity: 0.58; }
+}
+
 @keyframes flicker {
   0%,
   100% {
@@ -420,6 +1332,76 @@ body::after {
 }
 
 @media (max-width: 640px) {
+  .ff-vhs-recording-hud {
+    top: 0.75rem;
+    left: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+  }
+
+  .ff-vault-shot {
+    width: min(92vw, 700px);
+  }
+
+  .ff-vault-shadow-pass {
+    animation-duration: 6.4s;
+  }
+
+  .ff-vault-photo {
+    transform: scale(1.22);
+    object-position: 70% 44%;
+  }
+
+  .ff-vhs-audio-meter {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    height: 1.8rem;
+    gap: 0.18rem;
+  }
+
+  .ff-vhs-audio-meter span {
+    width: 0.22rem;
+  }
+
+  .ff-vhs-copy {
+    top: 50%;
+    bottom: auto;
+    width: min(92vw, 680px);
+    padding: 0.85rem 0.8rem 0.9rem;
+  }
+
+  .ff-vhs-copy::before {
+    width: min(84vw, 480px);
+    height: min(42vw, 180px);
+  }
+
+  .ff-vhs-kicker {
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+  }
+
+  .ff-vhs-title {
+    font-size: clamp(1.7rem, 6.4vw, 3rem);
+    letter-spacing: 0.1em;
+  }
+
+  .ff-vhs-fault-core,
+  .ff-vhs-fault-shift,
+  .ff-vhs-fault-burn {
+    width: min(92vw, 620px);
+    border-radius: 1.5rem;
+  }
+
+  .ff-vault-door {
+    width: 38%;
+  }
+
+  .ff-vault-shelf {
+    width: 16%;
+    height: 42%;
+  }
+
   .ff-signal-strip {
     gap: 0.5rem;
   }
@@ -485,6 +1467,59 @@ body::after {
 }
 
 @media (max-width: 420px) {
+  .ff-vhs-copy {
+    width: 94vw;
+  }
+
+  .ff-vhs-intro::after {
+    opacity: 0.45;
+  }
+
+  .ff-vhs-recording-frame {
+    inset: 0.65rem;
+  }
+
+  .ff-vault-shot {
+    aspect-ratio: 1.18 / 1;
+  }
+
+  .ff-vault-photo {
+    transform: scale(1.28);
+    object-position: 72% 46%;
+  }
+
+  .ff-vhs-audio-meter {
+    display: none;
+  }
+
+  .ff-vault-dropout-line {
+    height: 3.2%;
+  }
+
+  .ff-vault-chamber {
+    inset: 12% 7% 10%;
+  }
+
+  .ff-vault-shelf-a,
+  .ff-vault-shelf-b {
+    display: none;
+  }
+
+  .ff-vhs-title {
+    font-size: clamp(1.42rem, 8vw, 2.2rem);
+    letter-spacing: 0.08em;
+  }
+
+  .ff-vhs-copy::before {
+    width: 88vw;
+    height: 34vw;
+    border-radius: 999px;
+  }
+
+  .ff-vhs-copy-title {
+    max-width: 92vw;
+  }
+
   .quiz-poster {
     min-height: 0;
   }
@@ -507,6 +1542,10 @@ body::after {
 @media (max-width: 400px) {
   .ff-panel {
     backdrop-filter: blur(4px);
+  }
+
+  .ff-vhs-kicker {
+    letter-spacing: 0.24em;
   }
 
   .ff-button,

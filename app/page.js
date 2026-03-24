@@ -4,6 +4,7 @@ import { buildSearchHref, getMovieCountForFilters } from "./data/searchFilters";
 import { buildSearchHrefForQuiz } from "./data/quiz";
 import Link from "next/link";
 import MovieListItem from "./components/MovieListItem";
+import HomeVhsIntro from "./components/HomeVhsIntro";
 
 const discoveryPresets = [
   {
@@ -168,8 +169,9 @@ export default function Home() {
   }));
 
   return (
-    <main className="min-h-screen px-6 py-8 md:px-10 lg:px-16">
-      <div className="mx-auto max-w-7xl">
+    <HomeVhsIntro>
+      <main className="min-h-screen px-6 py-8 md:px-10 lg:px-16">
+        <div className="mx-auto max-w-7xl">
         <header className="mb-10">
           <div className="ff-panel rounded-3xl p-6 md:p-10">
             <p className="mb-3 text-xs uppercase tracking-[0.35em] text-green-300/70">
@@ -472,7 +474,8 @@ export default function Home() {
             ))}
           </ul>
         </section>
-      </div>
-    </main>
+        </div>
+      </main>
+    </HomeVhsIntro>
   );
 }

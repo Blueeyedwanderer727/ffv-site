@@ -1,79 +1,5 @@
 export const moviesChunk05 = [
   {
-    "title": "Paranormal Activity 3",
-    "year": 2011,
-    "slug": "paranormal-activity-3-2011",
-    "synopsis": "In 1988, young sisters Katie and Kristi befriend an invisible entity who resides in their home.",
-    "categories": [
-      "cult-conspiracy"
-    ],
-    "scareScore": 6.4,
-    "realismScore": 6,
-    "disturbingScore": 8,
-    "disturbingLevel": 8,
-    "jumpScareLevel": 4,
-    "recommendationScore": 7,
-    "fearIndex": 7.2,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": false,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//9nYranPiWdNmbD5PRPPSL7VUFTS.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/72571",
-    "relatedMovies": [
-      "The Last Broadcast",
-      "The Borderlands",
-      "Leaving D.C."
-    ],
-    "tags": [
-      "found-footage-style",
-      "compound",
-      "interviews",
-      "cult",
-      "paranoid",
-      "found-footage"
-    ],
-    "lists": [
-      "most-disturbing"
-    ]
-  },
-  {
-    "title": "Paranormal Activity 4",
-    "year": 2012,
-    "slug": "paranormal-activity-4-2012",
-    "synopsis": "It has been five years since the disappearance of Katie and Hunter, and a suburban family witness strange events in their neighborhood when a woman and a mysterious child move in.",
-    "categories": [
-      "anthology"
-    ],
-    "scareScore": 6.4,
-    "realismScore": 6,
-    "disturbingScore": 8,
-    "disturbingLevel": 8,
-    "jumpScareLevel": 4,
-    "recommendationScore": 7,
-    "fearIndex": 7.2,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//na5tAslm1kGNcft083AIXMTOsYR.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/82990",
-    "relatedMovies": [
-      "EXHIBIT X",
-      "Dead End",
-      "REC 3: Genesis"
-    ],
-    "tags": [
-      "found-footage-style",
-      "tapes",
-      "varied",
-      "wild",
-      "found-footage"
-    ],
-    "lists": [
-      "beginner-friendly",
-      "most-disturbing"
-    ]
-  },
-  {
     "title": "Paranormal Activity: Next of Kin",
     "year": 2021,
     "slug": "paranormal-activity-next-of-kin-2021",
@@ -603,43 +529,6 @@ export const moviesChunk05 = [
     ]
   },
   {
-    "title": "Rash",
-    "year": 2024,
-    "slug": "rash-2024",
-    "synopsis": "Marina has a rash, not really that big of a deal, til she starts itching for a bite of her friends.",
-    "categories": [
-      "cryptid"
-    ],
-    "scareScore": 6.2,
-    "realismScore": 7,
-    "disturbingScore": 6,
-    "disturbingLevel": 6,
-    "jumpScareLevel": 6,
-    "recommendationScore": 7,
-    "fearIndex": 6.4,
-    "fearCategory": "Creepy",
-    "beginnerFriendly": false,
-    "hiddenGem": true,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//vEGfmHsdcqUa2BfASe6Ue7pgJ6g.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/1570511",
-    "relatedMovies": [
-      "Alone with Her",
-      "The Poughkeepsie Tapes",
-      "The Mirror"
-    ],
-    "tags": [
-      "found-footage-style",
-      "forest",
-      "camping",
-      "cryptid",
-      "tense",
-      "found-footage"
-    ],
-    "lists": [
-      "hidden-gems"
-    ]
-  },
-  {
     "title": "Ratter",
     "year": 2015,
     "slug": "ratter-2015",
@@ -680,42 +569,40 @@ export const moviesChunk05 = [
   },
   {
     "title": "REC",
-    "year": 2025,
-    "slug": "rec-2025",
-    "synopsis": "A man begins to sense that every moment of his life is being watched, not just by cameras, but by something deeper. As paranoia grows, the line between surveillance and obsession starts to blur.  “REC🔴” is a psychological short that explores control, visibility, and the haunting cost of always being seen.",
+    "year": 2007,
+    "slug": "rec-2007",
+    "synopsis": "A television reporter and her cameraman become trapped inside a Barcelona apartment building as a violent infection spreads floor by floor and turns a routine night shoot into total panic.",
     "categories": [
-      "alien"
+      "zombie-infection",
+      "haunted-location"
     ],
-    "scareScore": 6.3,
-    "realismScore": 9,
-    "disturbingScore": 6,
-    "disturbingLevel": 6,
-    "jumpScareLevel": 5,
+    "scareScore": 8.4,
+    "realismScore": 8.6,
+    "disturbingScore": 8,
+    "disturbingLevel": 8,
+    "jumpScareLevel": 8,
     "recommendationScore": 9,
-    "fearIndex": 7.2,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": true,
+    "fearIndex": 8.2,
+    "fearCategory": "Terrifying",
+    "beginnerFriendly": false,
     "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//43i3Ek0nKpYM0gqh8CREgmMmXyO.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/1533683",
+    "posterUrl": "https://image.tmdb.org/t/p/w500/3JHY1jN8oDc5bJYM0fZQpJf7j0b.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/8329",
     "relatedMovies": [
-      "Bad Ben: Crescent Moon Clown",
-      "Horror in the High Desert",
-      "Altar"
+      "Gonjiam: Haunted Asylum",
+      "Hell House LLC",
+      "Paranormal Activity"
     ],
     "tags": [
-      "found-footage-style",
-      "desert",
-      "woods",
-      "aliens",
-      "mysterious",
       "found-footage",
+      "infection",
+      "apartment-building",
+      "reporter",
+      "nightmare",
+      "relentless",
       "quiz-core",
       "quiz-starter",
-      "infection",
-      "apartment-block",
-      "reporter",
-      "relentless"
+      "apartment-block"
     ],
     "quizTraits": {
       "scareLevel": "extreme",
@@ -731,9 +618,46 @@ export const moviesChunk05 = [
       ]
     },
     "lists": [
+      "scariest",
       "top-25-most-recommended",
-      "beginner-friendly",
+      "most-disturbing",
       "movies-that-feel-real"
+    ]
+  },
+  {
+    "title": "REC 2",
+    "year": 2025,
+    "slug": "rec-2-2025",
+    "synopsis": "Mike and Abby head to FazFest, but Abby’s discovery of a strange device leads the animatronics to escape and terrorize the city. Now, Mike, Abby, and Vanessa must stop the nightmare before it’s too late.  “Anyone can survive five nights. This time, there will be no second chances.”",
+    "categories": [
+      "psychological"
+    ],
+    "scareScore": 7.1,
+    "realismScore": 6,
+    "disturbingScore": 7,
+    "disturbingLevel": 7,
+    "jumpScareLevel": 8,
+    "recommendationScore": 7,
+    "fearIndex": 6.6,
+    "fearCategory": "Creepy",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//eqDiQr5Oso9FuE6rrTRijsbEBil.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/1460565",
+    "relatedMovies": [
+      "Population Zero",
+      "Afflicted",
+      "The Hunted"
+    ],
+    "tags": [
+      "found-footage-style",
+      "homes",
+      "human-threat",
+      "unsettling",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly"
     ]
   },
   {
@@ -1539,6 +1463,108 @@ export const moviesChunk05 = [
     "lists": [
       "top-25-most-recommended",
       "hidden-gems"
+    ]
+  },
+  {
+    "title": "The Atticus Institute",
+    "year": 2015,
+    "slug": "the-atticus-institute-2015",
+    "synopsis": "In the early 1970s, Dr. Henry West creates an institute to find people with supernatural abilities. When Judith Winstead comes to the facility, she exhibits amazing abilities that the military wants to turn into a weapon.",
+    "categories": [
+      "alien"
+    ],
+    "scareScore": 6.3,
+    "realismScore": 9,
+    "disturbingScore": 6,
+    "disturbingLevel": 6,
+    "jumpScareLevel": 5,
+    "recommendationScore": 6,
+    "fearIndex": 7.2,
+    "fearCategory": "Very Scary",
+    "beginnerFriendly": false,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//ompMn7y7LAlRgwfOYjp88bCCD1O.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/299551",
+    "relatedMovies": [
+      "Bad Ben: Crescent Moon Clown",
+      "REC",
+      "Horror in the High Desert"
+    ],
+    "tags": [
+      "found-footage-style",
+      "desert",
+      "woods",
+      "aliens",
+      "mysterious",
+      "found-footage"
+    ],
+    "lists": [
+      "movies-that-feel-real"
+    ]
+  },
+  {
+    "title": "The Bay",
+    "year": 2026,
+    "slug": "the-bay-2026",
+    "synopsis": "Best friends Emma and Lani, attending a destination wedding in Thailand, find themselves trapped on a sinking tour boat in the heart of a tiger shark sanctuary.",
+    "categories": [
+      "possession",
+      "cryptid"
+    ],
+    "scareScore": 6.6,
+    "realismScore": 9,
+    "disturbingScore": 7,
+    "disturbingLevel": 7,
+    "jumpScareLevel": 6,
+    "recommendationScore": 9,
+    "fearIndex": 7.2,
+    "fearCategory": "Creepy",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500/",
+    "tmdbUrl": "https://www.themoviedb.org/movie/1430698",
+    "relatedMovies": [
+      "Deadstream",
+      "Paranormal Activity",
+      "Documenting the Witch Path",
+      "Alone with Her",
+      "The Poughkeepsie Tapes",
+      "The Mirror"
+    ],
+    "tags": [
+      "found-footage-style",
+      "home",
+      "church",
+      "demon",
+      "tense",
+      "found-footage",
+      "quiz-core",
+      "quiz-batch-2",
+      "infection",
+      "coastal-town",
+      "gross-out",
+      "news-footage",
+      "forest",
+      "camping",
+      "cryptid"
+    ],
+    "quizTraits": {
+      "scareLevel": "extreme",
+      "pace": "relentless",
+      "realism": "high",
+      "threat": "infection",
+      "setting": "coastal-town",
+      "format": "documentary-mix",
+      "vibe": [
+        "disturbing",
+        "chaotic",
+        "grounded"
+      ]
+    },
+    "lists": [
+      "top-25-most-recommended",
+      "beginner-friendly",
+      "movies-that-feel-real"
     ]
   }
 ];

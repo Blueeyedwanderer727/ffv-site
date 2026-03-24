@@ -1,79 +1,5 @@
 export const moviesChunk07 = [
   {
-    "title": "The Lost Footage of Leah Sullivan",
-    "year": 2018,
-    "slug": "the-lost-footage-of-leah-sullivan-2018",
-    "synopsis": "An unedited memory card from a camera shows Leah Sullivan's school project about a cold case murder that doesn't seem to be so cold after all.",
-    "categories": [
-      "possession"
-    ],
-    "scareScore": 6.3,
-    "realismScore": 7,
-    "disturbingScore": 5,
-    "disturbingLevel": 5,
-    "jumpScareLevel": 8,
-    "recommendationScore": 7,
-    "fearIndex": 5.8,
-    "fearCategory": "Mild",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//tpMKGZQIRqtPvm9jcG9FZXaUCfk.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/555559",
-    "relatedMovies": [
-      "Deadstream",
-      "Paranormal Activity",
-      "Documenting the Witch Path"
-    ],
-    "tags": [
-      "found-footage-style",
-      "home",
-      "church",
-      "demon",
-      "tense",
-      "found-footage"
-    ],
-    "lists": [
-      "beginner-friendly"
-    ]
-  },
-  {
-    "title": "The Magician",
-    "year": 2005,
-    "slug": "the-magician-2005",
-    "synopsis": "Following the dealings of Melbourne-based hitman Ray as seen through the eyes of his ex-neighbour and friend Max, an Italian film student. Max and his camera witness Ray's work life as it unfolds from day to day, giving an insight into a world we rarely see, and at the same time developing an unusual friendship with his subject.",
-    "categories": [
-      "monster"
-    ],
-    "scareScore": 6.2,
-    "realismScore": 7,
-    "disturbingScore": 6,
-    "disturbingLevel": 6,
-    "jumpScareLevel": 6,
-    "recommendationScore": 6,
-    "fearIndex": 6.4,
-    "fearCategory": "Creepy",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//jWbwXZEmtOtftuRJ5C6RcmEaHlx.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/14096",
-    "relatedMovies": [
-      "Live",
-      "Bad Kitties",
-      "Children of Sorrow"
-    ],
-    "tags": [
-      "found-footage-style",
-      "city",
-      "wilderness",
-      "monster",
-      "urgent",
-      "found-footage"
-    ],
-    "lists": [
-      "beginner-friendly"
-    ]
-  },
-  {
     "title": "The McPherson Tape",
     "year": 1989,
     "slug": "the-mcpherson-tape-1989",
@@ -770,6 +696,71 @@ export const moviesChunk07 = [
       "paranoid"
     ],
     "lists": [
+      "movies-that-feel-real"
+    ]
+  },
+  {
+    "title": "The Visit",
+    "year": 2015,
+    "slug": "the-visit-2015",
+    "synopsis": "A brother and sister are sent to their grandparents' remote Pennsylvania farm for a week, where they discover that the elderly couple is involved in something deeply disturbing.",
+    "categories": [
+      "cult-conspiracy",
+      "psychological",
+      "serial-killer"
+    ],
+    "scareScore": 7.3,
+    "realismScore": 8.6,
+    "disturbingScore": 7,
+    "disturbingLevel": 7,
+    "jumpScareLevel": 8,
+    "recommendationScore": 8,
+    "fearIndex": 7.6,
+    "fearCategory": "Very Scary",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//mtMfKRCa2V5b7d9k4piogB72mcY.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/298312",
+    "relatedMovies": [
+      "The Last Broadcast",
+      "The Borderlands",
+      "Leaving D.C.",
+      "Creep",
+      "Butterfly Kisses",
+      "The Taking of Deborah Logan"
+    ],
+    "tags": [
+      "found-footage-style",
+      "compound",
+      "interviews",
+      "cult",
+      "paranoid",
+      "found-footage",
+      "quiz-core",
+      "quiz-batch-2",
+      "mockumentary",
+      "grandparents",
+      "family-horror",
+      "deception",
+      "documentary",
+      "suburban-house",
+      "human-threat"
+    ],
+    "quizTraits": {
+      "scareLevel": "medium",
+      "pace": "balanced",
+      "realism": "high",
+      "threat": "cult",
+      "setting": "house",
+      "format": "documentary",
+      "vibe": [
+        "creepy",
+        "grounded",
+        "paranoid"
+      ]
+    },
+    "lists": [
+      "beginner-friendly",
       "movies-that-feel-real"
     ]
   },

@@ -1,42 +1,5 @@
 export const moviesChunk04 = [
   {
-    "title": "Head Case",
-    "year": 2007,
-    "slug": "head-case-2007",
-    "synopsis": "A pseudo-documentary edited from the home movies of serial killers Wayne & Andrea Montgomery, presenting a look into their quiet, suburban lives...as well as the graphic & disturbing details of their horrific crimes.",
-    "categories": [
-      "screenlife"
-    ],
-    "scareScore": 7.4,
-    "realismScore": 9,
-    "disturbingScore": 7,
-    "disturbingLevel": 7,
-    "jumpScareLevel": 7,
-    "recommendationScore": 9,
-    "fearIndex": 7.8,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": false,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//l7SCo2H0ZwmjmcF2yhOvsKQ9Y4.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/28958",
-    "relatedMovies": [
-      "Area 51 Confidential",
-      "The Conspiracy",
-      "The Dark Tapes"
-    ],
-    "tags": [
-      "found-footage-style",
-      "computer-screen",
-      "unknown",
-      "tense",
-      "screenlife"
-    ],
-    "lists": [
-      "top-25-most-recommended",
-      "movies-that-feel-real"
-    ]
-  },
-  {
     "title": "Hell House LLC",
     "year": 2015,
     "slug": "hell-house-llc-2015",
@@ -829,62 +792,6 @@ export const moviesChunk04 = [
     ]
   },
   {
-    "title": "The Visit",
-    "year": 2015,
-    "slug": "the-visit-2015",
-    "synopsis": "Two siblings travel to rural Pennsylvania to spend a week with their estranged grandparents, only to document increasingly disturbing behavior that turns a family visit into a trap.",
-    "categories": [
-      "psychological",
-      "serial-killer"
-    ],
-    "scareScore": 7.1,
-    "realismScore": 8.6,
-    "disturbingScore": 6.8,
-    "disturbingLevel": 7,
-    "jumpScareLevel": 5,
-    "recommendationScore": 8,
-    "fearIndex": 7.6,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500/qoel6LJjVJ9X9V4VQ4tQW4gf0PZ.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/298312",
-    "relatedMovies": [
-      "Creep",
-      "Butterfly Kisses",
-      "The Taking of Deborah Logan"
-    ],
-    "tags": [
-      "found-footage",
-      "documentary",
-      "mockumentary",
-      "grandparents",
-      "suburban-house",
-      "family-horror",
-      "deception",
-      "human-threat",
-      "quiz-core",
-      "quiz-batch-2"
-    ],
-    "quizTraits": {
-      "scareLevel": "medium",
-      "pace": "balanced",
-      "realism": "high",
-      "threat": "cult",
-      "setting": "house",
-      "format": "documentary",
-      "vibe": [
-        "creepy",
-        "grounded",
-        "paranoid"
-      ]
-    },
-    "lists": [
-      "beginner-friendly",
-      "movies-that-feel-real"
-    ]
-  },
-  {
     "title": "Last Girl",
     "year": 2013,
     "slug": "last-girl-2013",
@@ -1647,6 +1554,80 @@ export const moviesChunk04 = [
     "lists": [
       "top-25-most-recommended",
       "beginner-friendly"
+    ]
+  },
+  {
+    "title": "Paranormal Activity 3",
+    "year": 2011,
+    "slug": "paranormal-activity-3-2011",
+    "synopsis": "In 1988, young sisters Katie and Kristi befriend an invisible entity who resides in their home.",
+    "categories": [
+      "cult-conspiracy"
+    ],
+    "scareScore": 6.4,
+    "realismScore": 6,
+    "disturbingScore": 8,
+    "disturbingLevel": 8,
+    "jumpScareLevel": 4,
+    "recommendationScore": 7,
+    "fearIndex": 7.2,
+    "fearCategory": "Very Scary",
+    "beginnerFriendly": false,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//9nYranPiWdNmbD5PRPPSL7VUFTS.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/72571",
+    "relatedMovies": [
+      "The Last Broadcast",
+      "The Borderlands",
+      "Leaving D.C."
+    ],
+    "tags": [
+      "found-footage-style",
+      "compound",
+      "interviews",
+      "cult",
+      "paranoid",
+      "found-footage"
+    ],
+    "lists": [
+      "most-disturbing"
+    ]
+  },
+  {
+    "title": "Paranormal Activity 4",
+    "year": 2012,
+    "slug": "paranormal-activity-4-2012",
+    "synopsis": "It has been five years since the disappearance of Katie and Hunter, and a suburban family witness strange events in their neighborhood when a woman and a mysterious child move in.",
+    "categories": [
+      "anthology"
+    ],
+    "scareScore": 6.4,
+    "realismScore": 6,
+    "disturbingScore": 8,
+    "disturbingLevel": 8,
+    "jumpScareLevel": 4,
+    "recommendationScore": 7,
+    "fearIndex": 7.2,
+    "fearCategory": "Very Scary",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//na5tAslm1kGNcft083AIXMTOsYR.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/82990",
+    "relatedMovies": [
+      "EXHIBIT X",
+      "Dead End",
+      "REC 3: Genesis"
+    ],
+    "tags": [
+      "found-footage-style",
+      "tapes",
+      "varied",
+      "wild",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly",
+      "most-disturbing"
     ]
   }
 ];

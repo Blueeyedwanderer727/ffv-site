@@ -1,107 +1,5 @@
 export const moviesChunk06 = [
   {
-    "title": "The Atticus Institute",
-    "year": 2015,
-    "slug": "the-atticus-institute-2015",
-    "synopsis": "In the early 1970s, Dr. Henry West creates an institute to find people with supernatural abilities. When Judith Winstead comes to the facility, she exhibits amazing abilities that the military wants to turn into a weapon.",
-    "categories": [
-      "alien"
-    ],
-    "scareScore": 6.3,
-    "realismScore": 9,
-    "disturbingScore": 6,
-    "disturbingLevel": 6,
-    "jumpScareLevel": 5,
-    "recommendationScore": 6,
-    "fearIndex": 7.2,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": false,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//ompMn7y7LAlRgwfOYjp88bCCD1O.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/299551",
-    "relatedMovies": [
-      "Bad Ben: Crescent Moon Clown",
-      "REC",
-      "Horror in the High Desert"
-    ],
-    "tags": [
-      "found-footage-style",
-      "desert",
-      "woods",
-      "aliens",
-      "mysterious",
-      "found-footage"
-    ],
-    "lists": [
-      "movies-that-feel-real"
-    ]
-  },
-  {
-    "title": "The Bay",
-    "year": 2026,
-    "slug": "the-bay-2026",
-    "synopsis": "Best friends Emma and Lani, attending a destination wedding in Thailand, find themselves trapped on a sinking tour boat in the heart of a tiger shark sanctuary.",
-    "categories": [
-      "possession",
-      "cryptid"
-    ],
-    "scareScore": 6.6,
-    "realismScore": 9,
-    "disturbingScore": 7,
-    "disturbingLevel": 7,
-    "jumpScareLevel": 6,
-    "recommendationScore": 9,
-    "fearIndex": 7.2,
-    "fearCategory": "Creepy",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500/",
-    "tmdbUrl": "https://www.themoviedb.org/movie/1430698",
-    "relatedMovies": [
-      "Deadstream",
-      "Paranormal Activity",
-      "Documenting the Witch Path",
-      "Alone with Her",
-      "The Poughkeepsie Tapes",
-      "The Mirror"
-    ],
-    "tags": [
-      "found-footage-style",
-      "home",
-      "church",
-      "demon",
-      "tense",
-      "found-footage",
-      "quiz-core",
-      "quiz-batch-2",
-      "infection",
-      "coastal-town",
-      "gross-out",
-      "news-footage",
-      "forest",
-      "camping",
-      "cryptid"
-    ],
-    "quizTraits": {
-      "scareLevel": "extreme",
-      "pace": "relentless",
-      "realism": "high",
-      "threat": "infection",
-      "setting": "coastal-town",
-      "format": "documentary-mix",
-      "vibe": [
-        "disturbing",
-        "chaotic",
-        "grounded"
-      ]
-    },
-    "lists": [
-      "top-25-most-recommended",
-      "beginner-friendly",
-      "movies-that-feel-real"
-    ]
-  },
-  {
     "title": "The Before Time",
     "year": 2025,
     "slug": "the-before-time-2025",
@@ -1586,6 +1484,80 @@ export const moviesChunk06 = [
       "beginner-friendly",
       "hidden-gems",
       "movies-that-feel-real"
+    ]
+  },
+  {
+    "title": "The Lost Footage of Leah Sullivan",
+    "year": 2018,
+    "slug": "the-lost-footage-of-leah-sullivan-2018",
+    "synopsis": "An unedited memory card from a camera shows Leah Sullivan's school project about a cold case murder that doesn't seem to be so cold after all.",
+    "categories": [
+      "possession"
+    ],
+    "scareScore": 6.3,
+    "realismScore": 7,
+    "disturbingScore": 5,
+    "disturbingLevel": 5,
+    "jumpScareLevel": 8,
+    "recommendationScore": 7,
+    "fearIndex": 5.8,
+    "fearCategory": "Mild",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//tpMKGZQIRqtPvm9jcG9FZXaUCfk.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/555559",
+    "relatedMovies": [
+      "Deadstream",
+      "Paranormal Activity",
+      "Documenting the Witch Path"
+    ],
+    "tags": [
+      "found-footage-style",
+      "home",
+      "church",
+      "demon",
+      "tense",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly"
+    ]
+  },
+  {
+    "title": "The Magician",
+    "year": 2005,
+    "slug": "the-magician-2005",
+    "synopsis": "Following the dealings of Melbourne-based hitman Ray as seen through the eyes of his ex-neighbour and friend Max, an Italian film student. Max and his camera witness Ray's work life as it unfolds from day to day, giving an insight into a world we rarely see, and at the same time developing an unusual friendship with his subject.",
+    "categories": [
+      "monster"
+    ],
+    "scareScore": 6.2,
+    "realismScore": 7,
+    "disturbingScore": 6,
+    "disturbingLevel": 6,
+    "jumpScareLevel": 6,
+    "recommendationScore": 6,
+    "fearIndex": 6.4,
+    "fearCategory": "Creepy",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//jWbwXZEmtOtftuRJ5C6RcmEaHlx.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/14096",
+    "relatedMovies": [
+      "Live",
+      "Bad Kitties",
+      "Children of Sorrow"
+    ],
+    "tags": [
+      "found-footage-style",
+      "city",
+      "wilderness",
+      "monster",
+      "urgent",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly"
     ]
   }
 ];

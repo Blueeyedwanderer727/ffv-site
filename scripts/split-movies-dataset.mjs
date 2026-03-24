@@ -5,6 +5,7 @@ import { movies } from "../app/data/movies.js";
 
 const chunkSize = 40;
 const outputDirectory = path.join(process.cwd(), "app", "data", "movies");
+const barrelFilePath = path.join(process.cwd(), "app", "data", "movies.js");
 
 async function main() {
   await fs.mkdir(outputDirectory, { recursive: true });
@@ -31,6 +32,20 @@ async function main() {
       return fs.writeFile(filePath, fileContents, "utf8");
     }),
   );
+
+  const barrelImports = chunks
+    .map((_, index) => {
+      const chunkNumber = String(index + 1).padStart(2, "0");
+      return `import { moviesChunk${chunkNumber} } from "./movies/chunk-${chunkNumber}.js";`;
+    })
+    .join("\n");
+
+  const barrelExports = chunks
+    .map((_, index) => `  ...moviesChunk${String(index + 1).padStart(2, "0")},`)
+    .join("\n");
+
+  const barrelContents = `${barrelImports}\n\nexport const movies = [\n${barrelExports}\n];\n`;
+  await fs.writeFile(barrelFilePath, barrelContents, "utf8");
 
   console.log(`Wrote ${chunks.length} movie chunks to ${outputDirectory}`);
 }

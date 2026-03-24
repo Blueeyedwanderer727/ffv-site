@@ -23,6 +23,10 @@ const TITLE_ALIASES = {
   Apocalyptic: "Apocalypse Cult",
 };
 
+const EXCLUDED_TMDB_IDS = new Set([
+  "1533683",
+]);
+
 const TITLE_OVERRIDES = {
   "Apocalypse Cult": {
     posterUrl: "https://image.tmdb.org/t/p/w500//8cUqTiHp0alYeV2JKHiFKu4a9iu.jpg",
@@ -356,6 +360,27 @@ const TITLE_OVERRIDES = {
 
 const MANUAL_MOVIES = [
   {
+    title: "REC",
+    year: 2007,
+    slug: "rec-2007",
+    synopsis: "A television reporter and her cameraman become trapped inside a Barcelona apartment building as a violent infection spreads floor by floor and turns a routine night shoot into total panic.",
+    categories: ["zombie-infection", "haunted-location"],
+    scareScore: 8.4,
+    realismScore: 8.6,
+    disturbingScore: 8,
+    disturbingLevel: 8,
+    jumpScareLevel: 8,
+    recommendationScore: 9,
+    fearIndex: 8.2,
+    fearCategory: "Terrifying",
+    beginnerFriendly: false,
+    hiddenGem: false,
+    posterUrl: "https://image.tmdb.org/t/p/w500/3JHY1jN8oDc5bJYM0fZQpJf7j0b.jpg",
+    tmdbUrl: "https://www.themoviedb.org/movie/8329",
+    relatedMovies: ["Gonjiam: Haunted Asylum", "Hell House LLC", "Paranormal Activity"],
+    tags: ["found-footage", "infection", "apartment-building", "reporter", "nightmare", "relentless"],
+  },
+  {
     title: "Lake Mungo",
     year: 2008,
     slug: "lake-mungo-2008",
@@ -541,6 +566,35 @@ function toText(value) {
   return String(value || "").trim();
 }
 
+function buildTmdbUrl(record) {
+  const directUrl = toText(record.tmdbUrl);
+  if (/^https?:\/\//i.test(directUrl)) {
+    return directUrl;
+  }
+
+  const tmdbId = toText(record.tmdbId || record.tmdbUrl).match(/\d+/)?.[0];
+  return tmdbId ? `https://www.themoviedb.org/movie/${tmdbId}` : "";
+}
+
+function getImportedYear(record) {
+  const maxYear = new Date().getFullYear() + 1;
+  const explicitYear = Math.trunc(toNumber(record.year));
+  if (explicitYear >= 1960 && explicitYear <= maxYear) {
+    return explicitYear;
+  }
+
+  const releaseYear = Math.trunc(toNumber(String(record.releaseDate || "").slice(0, 4)));
+  if (releaseYear >= 1960 && releaseYear <= maxYear) {
+    return releaseYear;
+  }
+
+  return 0;
+}
+
+function hasUsableSynopsis(value) {
+  return toText(value).length >= 20;
+}
+
 function normalizeTitle(title) {
   return TITLE_ALIASES[title] || title;
 }
@@ -677,6 +731,7 @@ function main() {
   const rows = parseCsv(csvText);
   const dataRows = rows.slice(1);
   const merged = new Map();
+  const skippedRecords = [];
 
   for (const columns of dataRows) {
     const record = Object.fromEntries(HEADERS.map((header, index) => [header, columns[index] || ""]));
@@ -685,12 +740,28 @@ function main() {
       continue;
     }
 
+    const sourceTmdbId = toText(record.tmdbId);
+    if (sourceTmdbId && EXCLUDED_TMDB_IDS.has(sourceTmdbId)) {
+      skippedRecords.push(`${title}: excluded source record ${sourceTmdbId}.`);
+      continue;
+    }
+
     const category = CATEGORY_MAP[toText(record.primaryCategory)];
     if (!category) {
       continue;
     }
 
-    const year = Math.trunc(toNumber(record.year));
+    const year = getImportedYear(record);
+    if (!year) {
+      skippedRecords.push(`${title}: invalid or missing release year.`);
+      continue;
+    }
+
+    if (!hasUsableSynopsis(record.overview)) {
+      skippedRecords.push(`${title}: synopsis is missing or too short.`);
+      continue;
+    }
+
     const baseSlug = slugify(title);
     if (!baseSlug) {
       continue;
@@ -735,7 +806,7 @@ function main() {
       beginnerFriendly: toBoolean(record.beginnerFriendly),
       hiddenGem: toBoolean(record.hiddenGem),
       posterUrl: toText(record.posterUrl),
-      tmdbUrl: toText(record.tmdbUrl),
+      tmdbUrl: buildTmdbUrl(record),
       relatedMovies: unique([toText(record.because1), toText(record.because2), toText(record.because3)]),
       tags,
     });
@@ -772,6 +843,12 @@ function main() {
   ].join("\n");
 
   fs.writeFileSync(outPath, fileContents, "utf8");
+
+  if (skippedRecords.length > 0) {
+    console.log(`Skipped ${skippedRecords.length} CSV records:`);
+    skippedRecords.forEach((entry) => console.log(`- ${entry}`));
+  }
+
   console.log(`Wrote ${movies.length} movies to ${outPath}`);
 }
 

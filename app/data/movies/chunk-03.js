@@ -1,5 +1,45 @@
 export const moviesChunk03 = [
   {
+    "title": "Crowsnest",
+    "year": 2012,
+    "slug": "crowsnest-2012",
+    "synopsis": "In late summer of 2011, five young friends on a road trip went missing after being attacked by nomadic cannibals in a huge RV. Video was recorded by the victims & recovered by police as evidence in their still-unsolved murders.",
+    "categories": [
+      "possession"
+    ],
+    "scareScore": 7.6,
+    "realismScore": 9,
+    "disturbingScore": 8,
+    "disturbingLevel": 8,
+    "jumpScareLevel": 6,
+    "recommendationScore": 8,
+    "fearIndex": 8.4,
+    "fearCategory": "Terrifying",
+    "beginnerFriendly": true,
+    "hiddenGem": true,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//g2swX9YGaIq1dpGr7gva8DGnWe4.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/137955",
+    "relatedMovies": [
+      "Deadstream",
+      "Paranormal Activity",
+      "Documenting the Witch Path"
+    ],
+    "tags": [
+      "found-footage-style",
+      "home",
+      "church",
+      "demon",
+      "tense",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly",
+      "hidden-gems",
+      "most-disturbing",
+      "movies-that-feel-real"
+    ]
+  },
+  {
     "title": "Curse of Aurore",
     "year": 2020,
     "slug": "curse-of-aurore-2020",
@@ -73,41 +113,6 @@ export const moviesChunk03 = [
       "hidden-gems",
       "most-disturbing"
     ]
-  },
-  {
-    "title": "Dark Mountain",
-    "year": 2013,
-    "slug": "dark-mountain-2013",
-    "synopsis": "In March of 2011, a group of friends set out to document their search for Bigfoot in the remote woods of Arizona. They found something else.",
-    "categories": [
-      "cryptid"
-    ],
-    "scareScore": 5.9,
-    "realismScore": 7,
-    "disturbingScore": 5,
-    "disturbingLevel": 5,
-    "jumpScareLevel": 6,
-    "recommendationScore": 7,
-    "fearIndex": 6.2,
-    "fearCategory": "Creepy",
-    "beginnerFriendly": true,
-    "hiddenGem": false,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//4ehKjE9J4MZk2un0nq6Mghf3n1R.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/185460",
-    "relatedMovies": [
-      "Willow Creek",
-      "Horror in the High Desert",
-      "Exists"
-    ],
-    "tags": [
-      "found-footage-style",
-      "woods",
-      "camping",
-      "cryptid",
-      "tense",
-      "found-footage"
-    ],
-    "lists": []
   },
   {
     "title": "Darkness Reigns",
@@ -501,43 +506,6 @@ export const moviesChunk03 = [
       "found-footage"
     ],
     "lists": []
-  },
-  {
-    "title": "Devil's Pass",
-    "year": 2013,
-    "slug": "devils-pass-2013",
-    "synopsis": "A team of American students investigates the infamous Dyatlov Pass incident, only to discover a truth far more terrifying than any legend.",
-    "categories": [
-      "monster"
-    ],
-    "scareScore": 6.7,
-    "realismScore": 7,
-    "disturbingScore": 6,
-    "disturbingLevel": 6,
-    "jumpScareLevel": 7,
-    "recommendationScore": 7,
-    "fearIndex": 6.8,
-    "fearCategory": "Very Scary",
-    "beginnerFriendly": true,
-    "hiddenGem": true,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//gOlYj3l0R0i3Q0Yx6T8ut4cQGgA.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/119122",
-    "relatedMovies": [
-      "The Tunnel",
-      "As Above, So Below",
-      "The Borderlands"
-    ],
-    "tags": [
-      "found-footage-style",
-      "mountains",
-      "expedition",
-      "monster",
-      "tense",
-      "found-footage"
-    ],
-    "lists": [
-      "hidden-gems"
-    ]
   },
   {
     "title": "Digging Up the Marrow",
@@ -1550,6 +1518,43 @@ export const moviesChunk03 = [
     ],
     "lists": [
       "top-25-most-recommended"
+    ]
+  },
+  {
+    "title": "Head Case",
+    "year": 2007,
+    "slug": "head-case-2007",
+    "synopsis": "A pseudo-documentary edited from the home movies of serial killers Wayne & Andrea Montgomery, presenting a look into their quiet, suburban lives...as well as the graphic & disturbing details of their horrific crimes.",
+    "categories": [
+      "screenlife"
+    ],
+    "scareScore": 7.4,
+    "realismScore": 9,
+    "disturbingScore": 7,
+    "disturbingLevel": 7,
+    "jumpScareLevel": 7,
+    "recommendationScore": 9,
+    "fearIndex": 7.8,
+    "fearCategory": "Very Scary",
+    "beginnerFriendly": false,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//l7SCo2H0ZwmjmcF2yhOvsKQ9Y4.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/28958",
+    "relatedMovies": [
+      "Area 51 Confidential",
+      "The Conspiracy",
+      "The Dark Tapes"
+    ],
+    "tags": [
+      "found-footage-style",
+      "computer-screen",
+      "unknown",
+      "tense",
+      "screenlife"
+    ],
+    "lists": [
+      "top-25-most-recommended",
+      "movies-that-feel-real"
     ]
   }
 ];

@@ -807,9 +807,45 @@ export const moviesChunk02 = [
     "disturbingScore": 7,
     "disturbingLevel": 7,
     "jumpScareLevel": 5,
-    "recommendationScore": 8,
-    "fearIndex": 6.8,
+    "recommendationScore": 6,
+    "fearIndex": 6.6,
     "fearCategory": "Creepy",
+    "beginnerFriendly": true,
+    "hiddenGem": false,
+    "posterUrl": "https://image.tmdb.org/t/p/w500//duJ88UxyhpAyLtTDnQHtF9ficeO.jpg",
+    "tmdbUrl": "https://www.themoviedb.org/movie/203009",
+    "relatedMovies": [
+      "EXHIBIT X",
+      "Dead End",
+      "REC 3: Genesis"
+    ],
+    "tags": [
+      "found-footage-style",
+      "tapes",
+      "varied",
+      "wild",
+      "found-footage"
+    ],
+    "lists": [
+      "beginner-friendly"
+    ]
+  },
+  {
+    "title": "Blair Witch",
+    "year": 2016,
+    "slug": "blair-witch-2016",
+    "synopsis": "Students on a camping trip discover something sinister is lurking beyond the trees.",
+    "categories": [
+      "monster"
+    ],
+    "scareScore": 5.7,
+    "realismScore": 7,
+    "disturbingScore": 5,
+    "disturbingLevel": 5,
+    "jumpScareLevel": 6,
+    "recommendationScore": 7,
+    "fearIndex": 5.8,
+    "fearCategory": "Mild",
     "beginnerFriendly": true,
     "hiddenGem": false,
     "posterUrl": "https://image.tmdb.org/t/p/w500//Ai73frMEz68bibFGRlPKdWBaIaq.jpg",
@@ -1550,46 +1586,6 @@ export const moviesChunk02 = [
     ],
     "lists": [
       "beginner-friendly"
-    ]
-  },
-  {
-    "title": "Crowsnest",
-    "year": 2012,
-    "slug": "crowsnest-2012",
-    "synopsis": "In late summer of 2011, five young friends on a road trip went missing after being attacked by nomadic cannibals in a huge RV. Video was recorded by the victims & recovered by police as evidence in their still-unsolved murders.",
-    "categories": [
-      "possession"
-    ],
-    "scareScore": 7.6,
-    "realismScore": 9,
-    "disturbingScore": 8,
-    "disturbingLevel": 8,
-    "jumpScareLevel": 6,
-    "recommendationScore": 8,
-    "fearIndex": 8.4,
-    "fearCategory": "Terrifying",
-    "beginnerFriendly": true,
-    "hiddenGem": true,
-    "posterUrl": "https://image.tmdb.org/t/p/w500//g2swX9YGaIq1dpGr7gva8DGnWe4.jpg",
-    "tmdbUrl": "https://www.themoviedb.org/movie/137955",
-    "relatedMovies": [
-      "Deadstream",
-      "Paranormal Activity",
-      "Documenting the Witch Path"
-    ],
-    "tags": [
-      "found-footage-style",
-      "home",
-      "church",
-      "demon",
-      "tense",
-      "found-footage"
-    ],
-    "lists": [
-      "beginner-friendly",
-      "hidden-gems",
-      "most-disturbing",
-      "movies-that-feel-real"
     ]
   }
 ];
