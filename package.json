@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
+    "prebuild": "npm run validate:movies",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "split:movies": "node --no-warnings scripts/split-movies-dataset.mjs",
+    "validate:movies": "node --no-warnings scripts/validate-movies.mjs",
+    "compare:tmdb-found-footage": "node --no-warnings scripts/compare-tmdb-found-footage.mjs"
   },
   "dependencies": {
     "next": "^16.2.0",
