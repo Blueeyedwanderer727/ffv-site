@@ -1,26 +1,84 @@
 import { movies } from "./data/movies";
-import { categoryLabels } from "./data/labels";
+import { categoryLabels, listLabels } from "./data/labels";
 import { buildSearchHref, getMovieCountForFilters } from "./data/searchFilters";
 import { buildSearchHrefForQuiz } from "./data/quiz";
+import { getFearCategory, getFearIndex, getListKeysForMovie } from "./data/listRankings";
+import Image from "next/image";
 import Link from "next/link";
 import MovieListItem from "./components/MovieListItem";
 import HomeVhsIntro from "./components/HomeVhsIntro";
+import HomeTrailerTV from "./components/HomeTrailerTV";
+
+function getFeaturedCaseStatus(movie) {
+  const fearCategory = getFearCategory(movie);
+
+  if (fearCategory === "Extreme Terror" || fearCategory === "Terrifying") {
+    return { label: "Flagged", tone: "alert" };
+  }
+
+  if (movie.hiddenGem) {
+    return { label: "Underseen", tone: "muted" };
+  }
+
+  if (movie.beginnerFriendly) {
+    return { label: "Cleared", tone: "clear" };
+  }
+
+  if (Number(movie.realismScore) >= 8) {
+    return { label: "Verified", tone: "verified" };
+  }
+
+  return { label: "Active", tone: "standard" };
+}
+
+function getFeaturedCaseAnnotation(movie, categoryLabel, listLabel) {
+  const fearCategory = getFearCategory(movie).toLowerCase();
+  const fearIndex = getFearIndex(movie);
+
+  if (listLabel === "Movies That Feel Real") {
+    return `Realism ${movie.realismScore}/10 keeps this file in the evidence-heavy stack; fear index ${fearIndex}/10 pushes it into the ${fearCategory} band.`;
+  }
+
+  if (listLabel === "Most Disturbing") {
+    return `Disturbing level ${movie.disturbingLevel || movie.disturbingScore}/10 is doing the sorting work here, with fear index ${fearIndex}/10 used to separate adjacent files.`;
+  }
+
+  if (listLabel === "Scariest") {
+    return `Primary filing stays under ${categoryLabel || "general archive"}; the ${fearCategory} band and scare score ${movie.scareScore}/10 keep this in the upper panic routes.`;
+  }
+
+  if (movie.hiddenGem || listLabel === "Hidden Gems") {
+    return `Filed as an underseen ${categoryLabel ? categoryLabel.toLowerCase() : "archive"} route, with recommendation weight ${movie.recommendationScore}/10 backing the pull.`;
+  }
+
+  if (movie.beginnerFriendly || listLabel === "Beginner Friendly") {
+    return `Cleared for newer viewers, but still anchored under ${categoryLabel || "core archive"} with a ${fearCategory} fear band.`;
+  }
+
+  return `Primary category remains ${categoryLabel || "general archive"}; fear index ${fearIndex}/10 keeps the case filed under the ${fearCategory} lane.`;
+}
 
 const discoveryPresets = [
   {
     title: "Start Soft",
     description: "Lower-intensity picks for people easing into found footage.",
     filters: { sort: "scare-asc", maxScore: 5, maxFearIndex: 5, fearCategory: "Mild" },
+    icon: "access",
+    note: "Built as a low-intensity search route: lower scare score, lower fear index, and a mild fear category so the archive opens with safer first-watch files.",
   },
   {
     title: "Feel Too Real",
     description: "Search for titles with realism and dread pushed high together.",
     filters: { sort: "fear-desc", minFearIndex: 7, fearCategory: "Terrifying" },
+    icon: "realism",
+    note: "Built to push realism and dread together: higher fear index, a terrifying fear category, and descending fear sort so the results skew invasive and harsh.",
   },
   {
     title: "Creeping Paranoia",
     description: "A quick jump into psychological dread and mid-to-high fear.",
     filters: { category: "psychological", sort: "fear-desc", minFearIndex: 6.5 },
+    icon: "mind",
+    note: "Built around the psychological route with mid-to-high fear already pinned, so the search starts in paranoia-heavy files instead of general found footage traffic.",
   },
 ];
 
@@ -29,11 +87,15 @@ const editorRoutes = [
     title: "Screenlife + Terrifying",
     description: "Desktop-native panic with the fear category already pinned to Terrifying.",
     filters: { category: "screenlife", fearCategory: "Terrifying", sort: "fear-desc" },
+    icon: "screen",
+    note: "An editor-made compound route that pre-combines the Screenlife category with the Terrifying fear band so the search opens in digital panic instead of broad category browse mode.",
   },
   {
     title: "Beginner Friendly + Realism 7+",
     description: "Grounded gateway films that stay accessible without feeling disposable.",
     filters: { beginnerFriendly: true, minRealismScore: 7, sort: "fear-desc" },
+    icon: "brief-ranking",
+    note: "An editor-made bridge between approachability and realism: it keeps the beginner-friendly gate on while forcing realism to stay at 7 or above.",
   },
 ];
 
@@ -43,6 +105,36 @@ const categoryPresets = [
   "haunted-location",
   "cult-conspiracy",
 ];
+
+const categoryBrowseKeys = [
+  "alien",
+  "anthology",
+  "cryptid",
+  "cult-conspiracy",
+  "haunted-location",
+  "monster",
+  "possession",
+  "psychological",
+  "screenlife",
+  "serial-killer",
+  "witchcraft",
+  "zombie-infection",
+];
+
+const categoryBrowseIcons = {
+  alien: "encounter",
+  anthology: "reel",
+  cryptid: "tracks",
+  "cult-conspiracy": "board",
+  "haunted-location": "site",
+  monster: "entity",
+  possession: "sigil",
+  psychological: "mind",
+  screenlife: "screen",
+  "serial-killer": "target",
+  witchcraft: "occult",
+  "zombie-infection": "outbreak",
+};
 
 const recommendationLaunchers = [
   {
@@ -87,6 +179,8 @@ const operationalRoutes = [
     description: "Four live quiz tracks, two lockable bonus labs, and recommendation lanes already wired into the vault.",
     href: "/fear-experiment",
     label: "Open Fear Experiment",
+    icon: "brief-search",
+    note: "This route exists as the recommendation-engine front door: quiz input, locked bonus labs, and Fear Experiment handoff logic all converge here.",
   },
   {
     eyebrow: "Live Route",
@@ -94,6 +188,8 @@ const operationalRoutes = [
     description: "The strongest operational surface for filtering by fear index, realism, category, list, and recommendation weight.",
     href: "/search",
     label: "Open Search",
+    icon: "board",
+    note: "This is the main control surface for vault discovery. It exposes the deepest combination of category, list, fear, realism, and recommendation filters in one place.",
   },
   {
     eyebrow: "Live Route",
@@ -101,6 +197,8 @@ const operationalRoutes = [
     description: "Scariest, most disturbing, beginner-friendly, realism-heavy, and top recommended routes are ready to use now.",
     href: "/lists",
     label: "Open Lists",
+    icon: "priority",
+    note: "This route collects the spreadsheet-derived ranking systems into one board, so users can jump directly into stable ordered discovery instead of browsing raw search first.",
   },
   {
     eyebrow: "Live Route",
@@ -108,6 +206,8 @@ const operationalRoutes = [
     description: "Direct subgenre browsing across alien, haunted, possession, screenlife, cult, and other active archive routes.",
     href: "/categories",
     label: "Open Categories",
+    icon: "brief-category",
+    note: "This route gives direct taxonomy access for users who already know the subgenre or threat type they want and do not need a ranking or quiz to start.",
   },
   {
     eyebrow: "Support Route",
@@ -115,11 +215,54 @@ const operationalRoutes = [
     description: "See how locked labs, share-based unlocks, and future paid Fear Experiment drops are being framed.",
     href: "/support",
     label: "Open Support",
+    icon: "access",
+    note: "This route sets expectations around locked labs, future unlock campaigns, and the staged support layer without pretending a complete funding flow already exists.",
+  },
+];
+
+const topListRoutes = [
+  {
+    title: "Scariest",
+    href: "/lists/scariest",
+    icon: "threat",
+    note: "Ordered from spreadsheet scoring with disturbing level weighted highest, then jump-scare level, then realism, with tie breaks from fear index and recommendation score.",
+  },
+  {
+    title: "Beginner Friendly",
+    href: "/lists/beginner-friendly",
+    icon: "access",
+    note: "Pulls from titles flagged as beginner-friendly, then keeps the route safer by preferring stronger recommendations with lower fear and realism extremes.",
+  },
+  {
+    title: "Top 25 Most Recommended",
+    href: "/lists/top-25-most-recommended",
+    icon: "priority",
+    note: "Restricted to titles with recommendation scores of 9 or higher, then ordered by recommendation score, fear index, and scariest score.",
+  },
+  {
+    title: "Hidden Gems",
+    href: "/lists/hidden-gems",
+    icon: "gem",
+    note: "Uses the hidden-gem flag as the gate, then ranks deeper cuts by recommendation score, fear index, and scariest score so discovery stays intentional.",
+  },
+  {
+    title: "Most Disturbing",
+    href: "/lists/most-disturbing",
+    icon: "damage",
+    note: "Built directly from disturbing-level severity, with fear index and recommendation score used when multiple files land on the same damage level.",
+  },
+  {
+    title: "Movies That Feel Real",
+    href: "/lists/movies-that-feel-real",
+    icon: "realism",
+    note: "Prioritizes realism score first, then uses fear index and recommendation score to separate the most convincing evidence-style films.",
   },
 ];
 
 const spotlightFiles = [
   {
+    code: "CF-01",
+    slug: "the-blair-witch-project-1999",
     title: "The Blair Witch Project",
     year: 1999,
     tag: "Essential",
@@ -127,6 +270,8 @@ const spotlightFiles = [
     href: "/movie/the-blair-witch-project-1999",
   },
   {
+    code: "CF-02",
+    slug: "rec-2007",
     title: "REC",
     year: 2007,
     tag: "Panic Spiral",
@@ -134,6 +279,8 @@ const spotlightFiles = [
     href: "/movie/rec-2007",
   },
   {
+    code: "CF-03",
+    slug: "hell-house-llc-2015",
     title: "Hell House LLC",
     year: 2015,
     tag: "Fan Favorite",
@@ -141,6 +288,8 @@ const spotlightFiles = [
     href: "/movie/hell-house-llc-2015",
   },
   {
+    code: "CF-04",
+    slug: "lake-mungo-2008",
     title: "Lake Mungo",
     year: 2008,
     tag: "Disturbing",
@@ -149,8 +298,74 @@ const spotlightFiles = [
   },
 ];
 
+const trailerChannels = [
+  {
+    slug: "the-blair-witch-project-1999",
+    fallbackTrailerKey: "AcTh2YItSaM",
+  },
+  {
+    slug: "rec-2007",
+    fallbackTrailerKey: "OeaUokzE9fI",
+  },
+  {
+    slug: "hell-house-llc-2015",
+    fallbackTrailerKey: "FQtqL6UskEY",
+  },
+  {
+    slug: "lake-mungo-2008",
+    fallbackTrailerKey: "4n8WNQ9kOac",
+  },
+  {
+    slug: "as-above-so-below-2014",
+    fallbackTrailerKey: "wVuv1Ey3oIM",
+  },
+  {
+    slug: "afflicted-2014",
+    fallbackTrailerKey: "PtfSuXbPYUU",
+  },
+  {
+    slug: "apollo-18-2011",
+    fallbackTrailerKey: "XK_u4GnJAMU",
+  },
+  {
+    slug: "be-my-cat-a-film-for-anne-2015",
+    fallbackTrailerKey: "e3J9fNrKE6U",
+  },
+];
+
 export default function Home() {
   const featuredMovies = movies.slice(0, 12);
+  const spotlightEntries = spotlightFiles.map((file) => {
+    const movie = movies.find((entry) => entry.slug === file.slug);
+    const categoryKey = movie?.categories?.[0] || null;
+    const listKey = movie ? getListKeysForMovie(movie)[0] : null;
+    const categoryLabel = categoryKey ? categoryLabels[categoryKey] : null;
+    const listLabel = listKey ? listLabels[listKey] : null;
+    const status = movie ? getFeaturedCaseStatus(movie) : { label: "Active", tone: "standard" };
+
+    return {
+      ...file,
+      categoryLabel,
+      listLabel,
+      posterUrl: movie?.posterUrl ?? null,
+      annotation: movie ? getFeaturedCaseAnnotation(movie, categoryLabel, listLabel) : "Recovered archive file.",
+      status,
+    };
+  });
+  const trailerMovies = trailerChannels
+    .map((channel) => {
+      const movie = movies.find((entry) => entry.slug === channel.slug);
+
+      if (!movie?.tmdbUrl) {
+        return null;
+      }
+
+      return {
+        ...movie,
+        fallbackTrailerKey: channel.fallbackTrailerKey,
+      };
+    })
+    .filter(Boolean);
   const discoveryLinks = discoveryPresets.map((preset) => ({
     ...preset,
     href: buildSearchHref(preset.filters),
@@ -166,6 +381,13 @@ export default function Home() {
     label: categoryLabels[categoryKey],
     href: buildSearchHref({ category: categoryKey }),
     count: getMovieCountForFilters(movies, { category: categoryKey }),
+  }));
+  const browseCategoryRoutes = categoryBrowseKeys.map((categoryKey) => ({
+    key: categoryKey,
+    label: categoryLabels[categoryKey],
+    href: `/${categoryKey}`,
+    icon: categoryBrowseIcons[categoryKey],
+    count: movies.filter((movie) => Array.isArray(movie.categories) && movie.categories.includes(categoryKey)).length,
   }));
 
   return (
@@ -209,7 +431,10 @@ export default function Home() {
           </div>
         </header>
 
-        <section className="mb-10">
+        <HomeTrailerTV movies={trailerMovies} />
+
+        <section className="mb-10 ff-board-surface ff-board-surface--evidence">
+          <div className="ff-board-corner">Evidence</div>
           <div className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="text-xs uppercase tracking-[0.3em] text-green-300/60">
@@ -218,33 +443,57 @@ export default function Home() {
               <h2 className="ff-safe-wrap text-2xl font-semibold text-green-50 md:text-3xl">
                 Essential Found Footage Watches
               </h2>
+              <p className="ff-board-filed">Filed Under Essential Evidence</p>
             </div>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {spotlightFiles.map((movie) => (
-              <article
-                key={movie.title}
-                className="ff-panel rounded-2xl p-5 transition duration-200 hover:-translate-y-1"
-              >
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="rounded-full border border-green-400/20 bg-green-400/10 px-3 py-1 text-xs uppercase tracking-wider text-green-200">
-                    {movie.tag}
-                  </span>
-                  <span className="text-sm text-green-100/60">{movie.year}</span>
+          <div className="ff-featured-case-grid grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {spotlightEntries.map((movie) => (
+              <article key={movie.title} className="ff-featured-case">
+                <div className="ff-featured-case__frame">
+                  <span className="ff-featured-case__hardware" aria-hidden="true" />
+                  <div className="ff-featured-case__topline">
+                    <span className="ff-featured-case__code">{movie.code}</span>
+                    <span className="ff-featured-case__tag">{movie.tag}</span>
+                  </div>
+                  <div className={`ff-featured-case__status ff-featured-case__status--${movie.status.tone}`}>
+                    {movie.status.label}
+                  </div>
+                  <div className="ff-featured-case__body">
+                    <div className="ff-featured-case__evidence">
+                      <div className="ff-featured-case__photo">
+                        {movie.posterUrl ? (
+                          <Image
+                            src={movie.posterUrl}
+                            alt={`Poster evidence for ${movie.title}`}
+                            fill
+                            className="h-full w-full object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 180px"
+                          />
+                        ) : (
+                          <span className="ff-featured-case__photo-fallback">Image pending</span>
+                        )}
+                      </div>
+                      <div className="ff-featured-case__year">{movie.year}</div>
+                    </div>
+                    <div className="ff-featured-case__content">
+                      <h3 className="ff-safe-wrap ff-featured-case__title">{movie.title}</h3>
+                      <p className="ff-featured-case__copy">{movie.desc}</p>
+                      <p className="ff-safe-wrap ff-featured-case__annotation">{movie.annotation}</p>
+                    </div>
+                  </div>
+                  <div className="ff-featured-case__meta">
+                    {movie.categoryLabel ? (
+                      <span>{movie.categoryLabel}</span>
+                    ) : null}
+                    {movie.listLabel ? (
+                      <span>{movie.listLabel}</span>
+                    ) : null}
+                  </div>
+                  <Link href={movie.href} className="ff-button ff-featured-case__cta rounded-full px-4 py-2 text-sm">
+                    Open Case File
+                  </Link>
                 </div>
-
-                <h3 className="mb-2 text-xl font-semibold text-green-50">
-                  {movie.title}
-                </h3>
-
-                <p className="text-sm leading-6 text-green-50/70">
-                  {movie.desc}
-                </p>
-
-                <Link href={movie.href} className="mt-5 inline-block text-sm font-medium text-green-300 hover:text-green-200">
-                  Open Movie →
-                </Link>
               </article>
             ))}
           </div>
@@ -320,26 +569,37 @@ export default function Home() {
         </section>
 
         <section className="mt-10 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <div className="ff-panel rounded-3xl p-6 md:p-8">
+          <div className="ff-panel ff-home-board ff-home-board--felt ff-home-discovery-panel rounded-3xl p-6 md:p-8">
             <h2 className="mb-3 text-2xl font-semibold text-green-50">Search by Feeling</h2>
             <p className="mb-5 text-green-50/70">
               Jump straight into curated search paths built around fear level, realism, and intensity.
             </p>
-            <div className="grid gap-3 md:grid-cols-3">
+            <div className="ff-home-discovery-grid grid gap-3 md:grid-cols-3">
               {discoveryLinks.map((preset) => (
                 <Link
                   key={preset.title}
                   href={preset.href}
-                  className="ff-border rounded-2xl bg-black/20 p-4 transition hover:-translate-y-1 hover:bg-green-400/8"
+                  className="ff-home-discovery-card"
                 >
-                  <div className="mb-2 flex items-center justify-between gap-3">
-                    <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">Preset</div>
-                    <span className="rounded-full border border-green-400/20 px-2 py-0.5 text-xs text-green-100/80">
-                      {preset.count}
-                    </span>
+                  <div className="ff-home-discovery-card__frame">
+                    <div className="ff-home-discovery-card__topline">
+                      <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">Preset</div>
+                      <span className="rounded-full border border-green-400/20 px-2 py-0.5 text-xs text-green-100/80">
+                        {preset.count}
+                      </span>
+                    </div>
+                    <div className={`ff-dossier-card__icon-box ff-dossier-card__icon-box--${preset.icon} ff-dossier-card__icon-box--compact`} aria-hidden="true">
+                      <span className="ff-dossier-card__icon-text">PATH</span>
+                      <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--primary" />
+                      <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--secondary" />
+                    </div>
+                    <div className="mb-2 text-lg font-semibold text-green-50">{preset.title}</div>
+                    <div className="text-sm text-green-50/65">{preset.description}</div>
+                    <div className="ff-home-discovery-card__hover" aria-hidden="true">
+                      <p className="ff-dossier-card__hover-label">Why this route exists</p>
+                      <p className="ff-safe-wrap ff-dossier-card__hover-copy">{preset.note}</p>
+                    </div>
                   </div>
-                  <div className="mb-2 text-lg font-semibold text-green-50">{preset.title}</div>
-                  <div className="text-sm text-green-50/65">{preset.description}</div>
                 </Link>
               ))}
             </div>
@@ -348,28 +608,39 @@ export default function Home() {
                 <h3 className="text-lg font-semibold text-green-50">Editor&apos;s Routes</h3>
                 <span className="text-xs uppercase tracking-[0.18em] text-green-100/40">Direct combos</span>
               </div>
-              <div className="grid gap-3 md:grid-cols-2">
+              <div className="ff-home-discovery-grid ff-home-discovery-grid--editor grid gap-3 md:grid-cols-2">
                 {editorRouteLinks.map((route) => (
                   <Link
                     key={route.title}
                     href={route.href}
-                    className="ff-border rounded-2xl bg-green-400/6 p-4 transition hover:-translate-y-1 hover:bg-green-400/10"
+                    className="ff-home-discovery-card ff-home-discovery-card--editor"
                   >
-                    <div className="mb-2 flex items-center justify-between gap-3">
-                      <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">Editor&apos;s route</div>
-                      <span className="rounded-full border border-green-400/20 px-2 py-0.5 text-xs text-green-100/85">
-                        {route.count}
-                      </span>
+                    <div className="ff-home-discovery-card__frame">
+                      <div className="ff-home-discovery-card__topline">
+                        <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">Editor&apos;s route</div>
+                        <span className="rounded-full border border-green-400/20 px-2 py-0.5 text-xs text-green-100/85">
+                          {route.count}
+                        </span>
+                      </div>
+                      <div className={`ff-dossier-card__icon-box ff-dossier-card__icon-box--${route.icon} ff-dossier-card__icon-box--compact`} aria-hidden="true">
+                        <span className="ff-dossier-card__icon-text">EDIT</span>
+                        <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--primary" />
+                        <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--secondary" />
+                      </div>
+                      <div className="mb-2 text-lg font-semibold text-green-50">{route.title}</div>
+                      <div className="text-sm text-green-50/70">{route.description}</div>
+                      <div className="ff-home-discovery-card__hover" aria-hidden="true">
+                        <p className="ff-dossier-card__hover-label">How this route was tuned</p>
+                        <p className="ff-safe-wrap ff-dossier-card__hover-copy">{route.note}</p>
+                      </div>
                     </div>
-                    <div className="mb-2 text-lg font-semibold text-green-50">{route.title}</div>
-                    <div className="text-sm text-green-50/70">{route.description}</div>
                   </Link>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="ff-panel rounded-3xl p-6 md:p-8">
+          <div className="ff-panel ff-home-board ff-home-board--steel rounded-3xl p-6 md:p-8">
             <h2 className="mb-3 text-2xl font-semibold text-green-50">Fast Category Starts</h2>
             <p className="mb-5 text-green-50/70">
               Open search already narrowed to some of the vault&apos;s strongest subgenres.
@@ -392,25 +663,28 @@ export default function Home() {
         </section>
 
         <section className="mt-10 grid gap-6 md:grid-cols-2">
-          <div className="ff-panel rounded-3xl p-6 md:p-8">
+          <div className="ff-panel ff-home-board ff-home-board--blueprint rounded-3xl p-6 md:p-8">
             <h2 className="mb-3 text-2xl font-semibold text-green-50">Browse by Category</h2>
-            <ul className="grid gap-2 text-green-50/75 sm:grid-cols-2">
-              <li><Link href="/alien" className="ff-link">Alien</Link></li>
-              <li><Link href="/anthology" className="ff-link">Anthology</Link></li>
-              <li><Link href="/cryptid" className="ff-link">Cryptid</Link></li>
-              <li><Link href="/cult-conspiracy" className="ff-link">Cult / Conspiracy</Link></li>
-              <li><Link href="/haunted-location" className="ff-link">Haunted Location</Link></li>
-              <li><Link href="/monster" className="ff-link">Monster</Link></li>
-              <li><Link href="/possession" className="ff-link">Possession</Link></li>
-              <li><Link href="/psychological" className="ff-link">Psychological</Link></li>
-              <li><Link href="/screenlife" className="ff-link">Screenlife</Link></li>
-              <li><Link href="/serial-killer" className="ff-link">Serial Killer</Link></li>
-              <li><Link href="/witchcraft" className="ff-link">Witchcraft</Link></li>
-              <li><Link href="/zombie-infection" className="ff-link">Zombie / Infection</Link></li>
-            </ul>
+            <p className="ff-board-filed">Filed Under Taxonomy Routes</p>
+            <div className="ff-home-category-grid">
+              {browseCategoryRoutes.map((category) => (
+                <Link key={category.key} href={category.href} className="ff-home-category-chip">
+                  <div className="ff-home-category-chip__frame">
+                    <div className={`ff-dossier-card__icon-box ff-dossier-card__icon-box--${category.icon} ff-home-category-chip__icon`} aria-hidden="true">
+                      <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--primary" />
+                      <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--secondary" />
+                    </div>
+                    <div className="ff-home-category-chip__body">
+                      <span className="ff-home-category-chip__label">{category.label}</span>
+                      <span className="ff-home-category-chip__count">{category.count}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
 
-          <div className="ff-panel rounded-3xl p-6 md:p-8">
+          <div className="ff-panel ff-home-board ff-home-board--carbon rounded-3xl p-6 md:p-8">
             <h2 className="mb-3 text-2xl font-semibold text-green-50">What Makes It Different?</h2>
             <p className="mb-4 text-green-50/70">
               Found Footage Vault helps horror fans discover movies by category,
@@ -423,39 +697,71 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="lists" className="mt-10 ff-panel rounded-3xl p-6 md:p-8">
+        <section id="lists" className="mt-10 ff-panel ff-home-board ff-home-board--ledger rounded-3xl p-6 md:p-8">
           <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold text-green-50">Browse Top Lists</h2>
+            <div>
+              <h2 className="text-2xl font-semibold text-green-50">Browse Top Lists</h2>
+              <p className="ff-board-filed">Filed Under Ranking Routes</p>
+            </div>
             <Link href="/lists" className="ff-link text-sm">
               View all lists
             </Link>
           </div>
-          <div className="grid gap-3 md:grid-cols-3">
-            <Link href="/lists/scariest" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Scariest</Link>
-            <Link href="/lists/beginner-friendly" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Beginner Friendly</Link>
-            <Link href="/lists/top-25-most-recommended" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Top 25 Most Recommended</Link>
-            <Link href="/lists/hidden-gems" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Hidden Gems</Link>
-            <Link href="/lists/most-disturbing" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Most Disturbing</Link>
-            <Link href="/lists/movies-that-feel-real" className="ff-border rounded-2xl bg-black/20 p-4 text-green-50/75 transition hover:bg-green-400/8">Movies That Feel Real</Link>
+          <div className="ff-home-route-grid grid gap-3 md:grid-cols-3">
+            {topListRoutes.map((route) => (
+              <Link key={route.title} href={route.href} className="ff-home-discovery-card ff-home-discovery-card--route">
+                <div className="ff-home-discovery-card__frame">
+                  <div className="ff-home-discovery-card__topline">
+                    <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">List route</div>
+                  </div>
+                  <div className={`ff-dossier-card__icon-box ff-dossier-card__icon-box--${route.icon} ff-dossier-card__icon-box--compact`} aria-hidden="true">
+                    <span className="ff-dossier-card__icon-text">LIST</span>
+                    <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--primary" />
+                    <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--secondary" />
+                  </div>
+                  <div className="mb-2 text-lg font-semibold text-green-50">{route.title}</div>
+                  <div className="ff-home-discovery-card__hover" aria-hidden="true">
+                    <p className="ff-dossier-card__hover-label">How this list is built</p>
+                    <p className="ff-safe-wrap ff-dossier-card__hover-copy">{route.note}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
-        <section className="mt-10 ff-panel rounded-3xl p-6 md:p-8">
+        <section className="mt-10 ff-panel ff-home-board ff-home-board--casefile rounded-3xl p-6 md:p-8">
           <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold text-green-50">Operational Discovery Routes</h2>
+            <div>
+              <h2 className="text-2xl font-semibold text-green-50">Operational Discovery Routes</h2>
+              <p className="ff-board-filed">Filed Under Live Operations</p>
+            </div>
             <span className="text-sm uppercase tracking-[0.18em] text-green-100/45">Live now</span>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <div className="ff-home-route-grid ff-home-route-grid--ops grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {operationalRoutes.map((route) => (
               <Link
                 key={route.title}
                 href={route.href}
-                className="ff-border rounded-2xl bg-black/20 p-5 transition hover:-translate-y-1 hover:bg-green-400/8"
+                className="ff-home-discovery-card ff-home-discovery-card--route"
               >
-                <div className="mb-2 text-sm uppercase tracking-[0.18em] text-green-300/70">{route.eyebrow}</div>
-                <div className="mb-2 text-xl font-semibold text-green-50">{route.title}</div>
-                <div className="mb-4 text-sm text-green-50/65">{route.description}</div>
-                <span className="ff-button inline-flex rounded-full px-4 py-2 text-sm">{route.label}</span>
+                <div className="ff-home-discovery-card__frame">
+                  <div className="ff-home-discovery-card__topline">
+                    <div className="text-sm uppercase tracking-[0.18em] text-green-300/70">{route.eyebrow}</div>
+                  </div>
+                  <div className={`ff-dossier-card__icon-box ff-dossier-card__icon-box--${route.icon} ff-dossier-card__icon-box--compact`} aria-hidden="true">
+                    <span className="ff-dossier-card__icon-text">ROUTE</span>
+                    <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--primary" />
+                    <span className="ff-dossier-card__icon-shape ff-dossier-card__icon-shape--secondary" />
+                  </div>
+                  <div className="mb-2 text-xl font-semibold text-green-50">{route.title}</div>
+                  <div className="mb-4 text-sm text-green-50/65">{route.description}</div>
+                  <span className="ff-button inline-flex rounded-full px-4 py-2 text-sm">{route.label}</span>
+                  <div className="ff-home-discovery-card__hover" aria-hidden="true">
+                    <p className="ff-dossier-card__hover-label">Why this route matters</p>
+                    <p className="ff-safe-wrap ff-dossier-card__hover-copy">{route.note}</p>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>

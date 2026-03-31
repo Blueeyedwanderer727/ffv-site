@@ -12,7 +12,7 @@ export default function FearExperimentQuizPage() {
       basePath="/fear-experiment/quiz"
       eyebrow="Fear Experiment"
       title="Enter The Fear Experiment"
-      intro="Four quiz tracks are live now, with two bonus labs that can be unlocked by sharing the experience and supporting the vault as the section grows."
+      intro="Four quiz tracks are live now, with two bonus labs staged as coming soon while the next unlock layer is prepared."
       availableModes={fearExperimentQuizModes}
       lockedModes={fearExperimentLockedModes}
     />

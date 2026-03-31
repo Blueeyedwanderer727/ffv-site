@@ -4,6 +4,38 @@ export const fearExperimentQuizModes = ["fear-profile", "personality", "survival
 
 export const fearExperimentLockedModes = ["subgenre", "intensity"];
 
+function normalizeTikTokUrl(value) {
+  if (!value) {
+    return "";
+  }
+
+  const trimmedValue = value.trim();
+  if (!trimmedValue) {
+    return "";
+  }
+
+  const normalizedValue = /^https?:\/\//i.test(trimmedValue) ? trimmedValue : `https://${trimmedValue}`;
+
+  try {
+    return new URL(normalizedValue).toString();
+  } catch {
+    return "";
+  }
+}
+
+const fearExperimentTikTokUnlockAssignments = {
+  subgenre: {
+    mode: "subgenre",
+    label: "Subgenre Lab unlock video",
+    url: normalizeTikTokUrl(process.env.NEXT_PUBLIC_FEAR_EXPERIMENT_SUBGENRE_TIKTOK_URL),
+  },
+  intensity: {
+    mode: "intensity",
+    label: "Exposure Ramp unlock video",
+    url: normalizeTikTokUrl(process.env.NEXT_PUBLIC_FEAR_EXPERIMENT_INTENSITY_TIKTOK_URL),
+  },
+};
+
 export const fearExperimentProfiles = [
   {
     slug: "gateway-observer",
@@ -57,6 +89,10 @@ export const fearExperimentProfiles = [
 
 export function getFearExperimentProfileBySlug(slug) {
   return fearExperimentProfiles.find((profile) => profile.slug === slug) || null;
+}
+
+export function getFearExperimentTikTokUnlockAssignment(mode) {
+  return fearExperimentTikTokUnlockAssignments[mode] || null;
 }
 
 export function getFearExperimentResultsHref(profile) {

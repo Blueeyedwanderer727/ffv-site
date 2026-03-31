@@ -39,7 +39,7 @@ export default function FearExperimentPage() {
     },
     {
       title: "Support The Vault",
-      description: "See how locked labs, share unlocks, and future paid support are being framed without leaving the archive.",
+      description: "See how locked labs, future unlock campaigns, and paid support are being framed without leaving the archive.",
       href: "/support",
     },
   ];
@@ -54,8 +54,7 @@ export default function FearExperimentPage() {
     <main className="min-h-screen px-6 py-12 text-white">
       <div className="mx-auto max-w-6xl">
         <div className="ff-panel ff-elevated mb-10 overflow-hidden rounded-[2rem] bg-[radial-gradient(circle_at_top,_rgba(61,147,88,0.28),_rgba(6,12,8,0.92)_58%)] p-8 md:p-10">
-          <p className="mb-3 text-sm uppercase tracking-[0.28em] text-green-300/70">Fear Experiment</p>
-          <h1 className="ff-glow ff-safe-wrap mb-4 text-3xl font-bold text-green-50 sm:text-4xl md:text-5xl">The Recommendation Engine, Archived As An Incident Report</h1>
+          <h1 className="ff-glow ff-safe-wrap mb-4 text-3xl font-bold text-green-50 sm:text-4xl md:text-5xl">Fear Experiment</h1>
           <p className="max-w-3xl text-lg text-green-50/72">
             This is where the vault turns your taste into direction: live quiz tracks, recommendation lanes, fear archetypes, and a cleaner way to move from mood to movie.
           </p>
@@ -64,7 +63,7 @@ export default function FearExperimentPage() {
           </p>
           <div className="ff-signal-strip mt-5">
             <span className="ff-signal-chip">quiz routing live</span>
-            <span className="ff-signal-chip">share unlocks enabled</span>
+            <span className="ff-signal-chip">bonus labs coming soon</span>
             <span className="ff-signal-chip">support route live</span>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
@@ -90,7 +89,7 @@ export default function FearExperimentPage() {
               <h2 className="ff-safe-wrap text-2xl font-semibold sm:text-3xl">Fear Experiment Quiz Catalog</h2>
             </div>
             <p className="max-w-2xl text-sm text-green-100/58">
-              Four tracks are live right now. Two bonus labs stay locked until someone shares the section or helps fund the next round of quiz expansion.
+              Four tracks are live right now. Two bonus labs stay locked as coming-soon experiments while the next unlock layer and expansion path are prepared.
             </p>
           </div>
 
@@ -105,7 +104,7 @@ export default function FearExperimentPage() {
                   </div>
                   <h3 className="ff-safe-wrap mb-2 text-xl font-semibold text-green-50 sm:text-2xl">{mode.title}</h3>
                   <p className="mb-4 text-sm text-green-100/58">{mode.description}</p>
-                  <p className="mb-5 text-sm text-green-100/56">Unlock this lab from the quiz page by sharing the Fear Experiment, or open support details for the paid-track path and future funding options.</p>
+                  <p className="mb-5 text-sm text-green-100/56">This lab is marked as coming soon while the next unlock campaign and future funding options are being prepared.</p>
                   <div className="flex flex-wrap gap-3">
                     <Link href={`/fear-experiment/quiz?mode=${mode.id}`} className="ff-button rounded-full px-4 py-2 text-sm">
                       Unlock Options

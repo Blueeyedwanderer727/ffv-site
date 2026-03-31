@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import QuizModePoster from "./QuizModePoster";
 import { categoryLabels, listLabels } from "../data/labels";
+import { getFearExperimentTikTokUnlockAssignment } from "../data/fearExperiment";
 import {
   buildQuizHref,
   buildSearchHrefForQuiz,
@@ -23,6 +24,21 @@ import {
 
 const FEAR_EXPERIMENT_UNLOCK_STORAGE_KEY = "ffv-fear-experiment-unlocks";
 const FEAR_EXPERIMENT_SUPPORT_HREF = "/support";
+
+function trackAnalyticsEvent(eventName, payload = {}) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, payload);
+    return;
+  }
+
+  if (typeof window.plausible === "function") {
+    window.plausible(eventName, { props: payload });
+  }
+}
 
 function readUnlockedModes() {
   if (typeof window === "undefined") {
@@ -54,16 +70,40 @@ function mergeUnlockedModes(currentModes, nextModes) {
   return [...new Set([...currentModes, ...nextModes].filter(Boolean))];
 }
 
-function LockedModeActions({ mode, status, onShareUnlock }) {
+function LockedModeActions({ mode, status, assignment, onOpenTikTokUnlock, onConfirmTikTokUnlock }) {
+  const isUnlocked = status === "unlocked";
+  const isAwaitingConfirmation = status === "awaiting-confirmation";
+  const isMissingAssignment = !assignment?.url || status === "missing-config";
+  const isComingSoon = isMissingAssignment;
+
   return (
     <div className="flex flex-wrap gap-3">
       <button
         type="button"
-        onClick={() => onShareUnlock(mode.id)}
+        onClick={() => (isAwaitingConfirmation ? onConfirmTikTokUnlock(mode.id) : onOpenTikTokUnlock(mode.id))}
+        disabled={isUnlocked || isComingSoon}
         className="ff-button rounded-full px-4 py-2 text-sm font-medium"
       >
-        {status === "unlocked" ? "Unlocked In Browser" : status === "error" ? "Share Failed" : "Share To Unlock"}
+        {isUnlocked
+          ? "Unlocked In Browser"
+          : isComingSoon
+            ? "Bonus Lab Coming Soon"
+            : isAwaitingConfirmation
+              ? "Confirm Unlock"
+              : status === "error"
+                ? "Unlock Open Failed"
+                : "Unlock Lab"}
       </button>
+      {assignment?.url && !isComingSoon ? (
+        <Link
+          href={assignment.url}
+          target="_blank"
+          rel="noreferrer"
+          className="ff-border rounded-full px-4 py-2 text-sm text-green-50/80 hover:bg-green-400/8"
+        >
+          Open Unlock Campaign
+        </Link>
+      ) : null}
       <Link
         href={FEAR_EXPERIMENT_SUPPORT_HREF}
         className="ff-border rounded-full px-4 py-2 text-sm text-green-50/80 hover:bg-green-400/8"
@@ -129,6 +169,7 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
   }, [activeMode, activeQuestions, searchParams]);
 
   const selectedModeMeta = selectedMode ? getQuizModeMeta(selectedMode) : null;
+  const selectedUnlockAssignment = selectedMode ? getFearExperimentTikTokUnlockAssignment(selectedMode) : null;
 
   const modeCards = useMemo(() => {
     return availableModes
@@ -141,6 +182,7 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
         return {
           ...meta,
           isLocked: lockedModeIds.includes(mode),
+          unlockAssignment: getFearExperimentTikTokUnlockAssignment(mode),
         };
       })
       .filter(Boolean);
@@ -203,28 +245,31 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
     setCopyStatus("idle");
   }
 
-  async function unlockModeByShare(mode) {
+  function confirmTikTokUnlock(mode) {
+    const nextUnlockedModes = mergeUnlockedModes(unlockedModes, [mode]);
+    setUnlockedModes(nextUnlockedModes);
+    writeUnlockedModes(nextUnlockedModes);
+    setUnlockStatus((currentStatus) => ({ ...currentStatus, [mode]: "unlocked" }));
+  }
+
+  function openTikTokUnlock(mode) {
     if (typeof window === "undefined") {
       return;
     }
 
-    const shareUrl = new URL(buildQuizHref(mode, {}, basePath, getQuizQuestionsForMode(mode)), window.location.origin).toString();
+    const assignment = getFearExperimentTikTokUnlockAssignment(mode);
+    if (!assignment?.url) {
+      setUnlockStatus((currentStatus) => ({ ...currentStatus, [mode]: "missing-config" }));
+      return;
+    }
 
     try {
-      if (typeof navigator.share === "function") {
-        await navigator.share({
-          title: "Fear Experiment",
-          text: "I unlocked another Fear Experiment track in Found Footage Vault.",
-          url: shareUrl,
-        });
-      } else {
-        await navigator.clipboard.writeText(shareUrl);
+      const unlockWindow = window.open(assignment.url, "_blank", "noopener,noreferrer");
+      if (!unlockWindow) {
+        throw new Error("TikTok window blocked");
       }
 
-      const nextUnlockedModes = mergeUnlockedModes(unlockedModes, [mode]);
-      setUnlockedModes(nextUnlockedModes);
-      writeUnlockedModes(nextUnlockedModes);
-      setUnlockStatus((currentStatus) => ({ ...currentStatus, [mode]: "unlocked" }));
+      setUnlockStatus((currentStatus) => ({ ...currentStatus, [mode]: "awaiting-confirmation" }));
     } catch {
       setUnlockStatus((currentStatus) => ({ ...currentStatus, [mode]: "error" }));
     }
@@ -286,9 +331,18 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
                   <div className="mb-2 text-2xl font-semibold text-green-50">{mode.title}</div>
                   <p className="mb-4 text-green-50/70">{mode.description}</p>
                   <p className="mb-5 text-sm text-green-100/56">
-                    Share the Fear Experiment to unlock this track in your browser, or open the support page to see how future paid drops and vault support will work.
+                    This track is part of the next Fear Experiment rollout. Bonus lab unlock campaigns are coming soon.
                   </p>
-                  <LockedModeActions mode={mode} status={unlockStatus[mode.id]} onShareUnlock={unlockModeByShare} />
+                  <LockedModeActions
+                    mode={mode}
+                    status={unlockStatus[mode.id]}
+                    assignment={mode.unlockAssignment}
+                    onOpenTikTokUnlock={openTikTokUnlock}
+                    onConfirmTikTokUnlock={confirmTikTokUnlock}
+                  />
+                  {!mode.unlockAssignment?.url ? (
+                    <p className="mt-3 text-xs text-green-100/56">This lab is staged for a future unlock campaign.</p>
+                  ) : null}
                 </div>
               ) : (
                 <button
@@ -312,7 +366,7 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
                 <div className="mb-2 text-sm uppercase tracking-[0.18em] text-green-300/70">Locked Track</div>
                 <h2 className="mb-2 text-3xl font-semibold text-green-50">{selectedModeMeta?.title || "Fear Experiment Track"}</h2>
                 <p className="max-w-2xl text-green-100/60">
-                  This track is intentionally gated. Share the quiz lab to unlock it in this browser, or open support details for the paid-track path as that layer gets formalized.
+                  This track is intentionally held for a later rollout. Unlock campaigns for bonus labs are coming soon.
                 </p>
               </div>
               <div className="w-full max-w-[240px]">
@@ -320,9 +374,18 @@ function FearExperimentQuizContent({ basePath, eyebrow, title, intro, availableM
               </div>
             </div>
             <div className="ff-border mb-6 rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">
-              Unlocking by share is immediate for this browser session and stays available on return unless local storage is cleared.
+              For now, locked labs stay visible as future bonus tracks while the unlock campaign layer is being prepared.
             </div>
-            <LockedModeActions mode={selectedModeMeta} status={unlockStatus[selectedMode]} onShareUnlock={unlockModeByShare} />
+            <LockedModeActions
+              mode={selectedModeMeta}
+              status={unlockStatus[selectedMode]}
+              assignment={selectedUnlockAssignment}
+              onOpenTikTokUnlock={openTikTokUnlock}
+              onConfirmTikTokUnlock={confirmTikTokUnlock}
+            />
+            {!selectedUnlockAssignment?.url ? (
+              <p className="mt-3 text-xs text-green-100/56">This lab is marked as coming soon until its unlock campaign is ready.</p>
+            ) : null}
           </div>
         ) : !isComplete ? (
           <div className="ff-panel ff-elevated rounded-3xl p-6 md:p-8">

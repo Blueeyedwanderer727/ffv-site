@@ -1,5 +1,8 @@
+import { headers } from "next/headers";
+
 import { movies } from "./data/movies";
 import { siteUrl } from "./data/site";
+import { getLaunchModeFromHeaders } from "./lib/siteAccess";
 
 const staticRoutes = [
   "",
@@ -30,7 +33,13 @@ const staticRoutes = [
   "/lists/hidden-gems",
 ];
 
-export default function sitemap() {
+export default async function sitemap() {
+  const headerStore = await headers();
+
+  if (getLaunchModeFromHeaders(headerStore) === "locked") {
+    return [];
+  }
+
   const now = new Date();
   const staticEntries = staticRoutes.map((route) => ({
     url: `${siteUrl}${route}`,

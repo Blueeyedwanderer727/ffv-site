@@ -3,14 +3,14 @@ import { siteName } from "../data/site";
 
 export const metadata = {
   title: "Support The Vault",
-  description: "Learn how Fear Experiment share unlocks work and how future paid quiz drops will be supported inside Found Footage Vault.",
+  description: "Learn how Fear Experiment bonus labs, future unlock campaigns, and paid quiz drops will be supported inside Found Footage Vault.",
 };
 
 const supportLanes = [
   {
     eyebrow: "Immediate Unlock",
-    title: "Share-Based Access",
-    description: "Locked Fear Experiment tracks can already be unlocked in-browser by sharing the quiz page. That unlock stays available on return unless local storage is cleared.",
+    title: "Bonus Labs Coming Soon",
+    description: "Locked Fear Experiment tracks are visible now as part of the next rollout phase. The unlock campaign layer is being staged, but it is not active yet.",
     ctaLabel: "Open Fear Experiment",
     href: "/fear-experiment/quiz",
   },
@@ -31,7 +31,8 @@ const supportLanes = [
 ];
 
 const supportNotes = [
-  "Share unlocks are local to the browser and do not require sign-in.",
+  "Locked labs are currently presented as coming soon rather than fully active unlocks.",
+  "The unlock campaign layer is being staged separately so the site does not promise a flow that is not ready yet.",
   "The payment layer is not wired to a live processor yet, so this page sets expectation without faking checkout.",
   "When paid support is formalized, the locked-lab messaging can point here without changing the rest of the Fear Experiment flow.",
 ];
@@ -44,10 +45,10 @@ export default function SupportPage() {
           <p className="mb-3 text-sm uppercase tracking-[0.28em] text-green-300/70">Support The Vault</p>
           <h1 className="ff-glow ff-safe-wrap mb-4 text-3xl font-bold text-green-50 sm:text-4xl md:text-5xl">How Locked Labs And Future Support Work</h1>
           <p className="max-w-3xl text-lg text-green-50/72">
-            {siteName} now uses a two-layer model for Fear Experiment: core quiz tracks stay open, while bonus labs can be gated behind sharing today and a cleaner paid path later.
+            {siteName} now uses a two-layer model for Fear Experiment: core quiz tracks stay open, while bonus labs stay visible as coming soon until the next unlock layer and a cleaner paid path are ready.
           </p>
           <div className="ff-signal-strip mt-5">
-            <span className="ff-signal-chip">share unlocks live</span>
+            <span className="ff-signal-chip">bonus labs coming soon</span>
             <span className="ff-signal-chip">payment path staged</span>
             <span className="ff-signal-chip">no fake checkout</span>
           </div>
@@ -102,7 +103,7 @@ export default function SupportPage() {
               </div>
               <div className="ff-border rounded-2xl bg-black/20 p-4">
                 <div className="mb-1 text-xs uppercase tracking-[0.18em] text-green-300/70">Step 2</div>
-                <div className="text-sm text-green-50/78">Gate the bonus labs behind a share unlock first so there is a real interaction instead of placeholder scarcity.</div>
+                <div className="text-sm text-green-50/78">Keep the bonus labs visible as coming soon until the unlock campaign layer is ready to be switched on.</div>
               </div>
               <div className="ff-border rounded-2xl bg-black/20 p-4">
                 <div className="mb-1 text-xs uppercase tracking-[0.18em] text-green-300/70">Step 3</div>
@@ -122,7 +123,7 @@ export default function SupportPage() {
           </div>
           <div className="grid gap-3 md:grid-cols-3">
             <Link href="/fear-experiment/quiz" className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72 transition hover:-translate-y-1 hover:bg-green-400/8">
-              Go straight to the quiz lab and let the share unlock do the work.
+              Go straight to the quiz lab and let the open tracks do the work while the bonus labs stay in preview.
             </Link>
             <Link href="/fear-experiment" className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72 transition hover:-translate-y-1 hover:bg-green-400/8">
               Show the catalog first if you want users to understand which tracks are open versus gated.

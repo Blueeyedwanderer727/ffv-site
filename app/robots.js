@@ -1,6 +1,22 @@
-import { siteUrl } from "./data/site";
+import { headers } from "next/headers";
 
-export default function robots() {
+import { siteUrl } from "./data/site";
+import { getLaunchModeFromHeaders } from "./lib/siteAccess";
+
+export default async function robots() {
+  const headerStore = await headers();
+  const launchClosed = getLaunchModeFromHeaders(headerStore) === "locked";
+
+  if (launchClosed) {
+    return {
+      rules: {
+        userAgent: "*",
+        disallow: "/",
+      },
+      host: siteUrl,
+    };
+  }
+
   return {
     rules: {
       userAgent: "*",
