@@ -68,7 +68,7 @@ export async function generateMetadata() {
         default: "Coming Soon",
         template: `%s | ${siteName}`,
       },
-      description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment, where the vault turns your taste into direction.",
+      description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment.",
       applicationName: siteName,
       robots: {
         index: false,
@@ -86,13 +86,13 @@ export async function generateMetadata() {
         url: siteUrl,
         siteName,
         title: `${siteName} | Coming Soon`,
-        description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment, where the vault turns your taste into direction.",
+        description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment.",
         locale: "en_US",
       },
       twitter: {
         card: "summary_large_image",
         title: `${siteName} | Coming Soon`,
-        description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment, where the vault turns your taste into direction.",
+        description: "An operational discovery archive for found footage movies. Featuring the Fear Experiment.",
       },
       other: {
         "apple-mobile-web-app-title": siteName,

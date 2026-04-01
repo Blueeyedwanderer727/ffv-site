@@ -32,7 +32,7 @@ export default function ComingSoonPage() {
               Archive Access Coming Soon
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-green-50/72 md:text-lg">
-              An operational discovery archive for found footage movies. Featuring the Fear Experiment, where the vault turns your taste into direction.
+              An operational discovery archive for found footage movies. Featuring the Fear Experiment.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.24em] text-green-100/62">
