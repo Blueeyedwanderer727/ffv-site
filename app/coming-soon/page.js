@@ -3,15 +3,15 @@ const statusChips = ["Public access sealed", "Archive restoration in progress", 
 const recoveryNotes = [
   {
     label: "Status",
-    value: "The public vault is temporarily closed while the final build and route checks finish.",
+    value: "The public vault is temporarily closed while final launch work and route checks are completed.",
   },
   {
     label: "What returns",
-    value: "The full archive, ranked lists, search console, and Fear Experiment routes come back together at launch.",
+    value: "The full archive, ranked lists, search console, and Fear Experiment return together when the site opens publicly.",
   },
   {
     label: "Current mode",
-    value: "This holding page is live on the public domain so unfinished sections stay out of view until release.",
+    value: "The public domain is currently limited to this holding page while the full site stays behind the lock.",
   },
 ];
 
@@ -29,10 +29,10 @@ export default function ComingSoonPage() {
           <section className="ff-panel rounded-[2rem] border border-green-300/14 bg-[radial-gradient(circle_at_top_left,_rgba(89,255,143,0.13),_rgba(5,10,7,0.96)_58%)] px-6 py-7 shadow-[0_30px_90px_rgba(0,0,0,0.45)] md:px-8 md:py-9">
             <p className="mb-4 text-xs uppercase tracking-[0.34em] text-green-300/72">Found Footage Vault</p>
             <h1 className="ff-glow ff-safe-wrap max-w-4xl text-4xl font-bold uppercase tracking-[0.06em] text-green-50 sm:text-5xl md:text-6xl">
-              Archive Access Returning Soon
+              Archive Access Coming Soon
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-green-50/72 md:text-lg">
-              The vault is temporarily sealed while the public release build is finished. The live domain now shows this holding screen until the archive is ready to open in full.
+              An operational discovery archive for found footage movies. Featuring the Fear Experiment, where the vault turns your taste into direction.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3 text-[11px] uppercase tracking-[0.24em] text-green-100/62">
@@ -64,7 +64,7 @@ export default function ComingSoonPage() {
                   </span>
                 </div>
                 <p className="text-sm leading-7 text-green-50/75">
-                  Public requests are being routed to this screen while the archive remains under final assembly. Local development stays available on localhost only.
+                  Public visitors are being routed to this screen while the archive remains in final development. Localhost stays available for internal build work only.
                 </p>
               </div>
             </section>
@@ -72,9 +72,9 @@ export default function ComingSoonPage() {
             <section className="ff-panel rounded-[2rem] border border-green-300/14 bg-black/30 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.34)]">
               <p className="mb-3 text-xs uppercase tracking-[0.28em] text-green-300/68">Launch Checklist</p>
               <div className="space-y-3">
-                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">Search routes, movie pages, and list surfaces are staying behind the lock until review is complete.</div>
-                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">The public domain is now limited to a single branded page instead of exposing unfinished sections.</div>
-                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">When you are ready to launch, the lock can be removed cleanly without rebuilding the archive pages themselves.</div>
+                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">The public domain stays on this holding page until the full archive is ready to open.</div>
+                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">Search, movie files, list routes, and category pages remain hidden from public traffic for now.</div>
+                <div className="ff-border rounded-2xl bg-black/20 p-4 text-sm text-green-50/72">When launch is approved, the hold can be removed without rebuilding the archive itself.</div>
               </div>
             </section>
           </aside>
